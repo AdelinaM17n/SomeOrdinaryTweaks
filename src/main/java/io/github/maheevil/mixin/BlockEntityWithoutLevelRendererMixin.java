@@ -15,12 +15,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(BlockEntityWithoutLevelRenderer.class)
-public class CanMyChinchillaPlaceThisDirtOnTopOfYourBlockOnTuesday {
-   // private LocalPlayer LocalPlayer;
-
+public class BlockEntityWithoutLevelRendererMixin {
     @Shadow @Final private BlockEntityRenderDispatcher blockEntityRenderDispatcher;
-
-   // @Shadow private ShieldModel shieldModel;
 
     @Inject(
             method = "renderByItem",
@@ -32,7 +28,7 @@ public class CanMyChinchillaPlaceThisDirtOnTopOfYourBlockOnTuesday {
             cancellable = true
     )
     public void rendermixin(ItemStack itemStack, ItemTransforms.TransformType transformType, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, CallbackInfo ci){
-        if(transformType == ItemTransforms.TransformType.FIRST_PERSON_LEFT_HAND && this.blockEntityRenderDispatcher.level.players().get(0).getMainHandItem().is(Items.STONE_SWORD)) {
+        if(transformType == ItemTransforms.TransformType.FIRST_PERSON_LEFT_HAND && this.blockEntityRenderDispatcher.level.players().get(0).getMainHandItem() != null &&!this.blockEntityRenderDispatcher.level.players().get(0).getMainHandItem().is(Items.STONE_SWORD)) {
             ci.cancel();
         }
     }
