@@ -26,7 +26,7 @@ public abstract class BlockEntityWithoutLevelRendererMixin {
             ),
             cancellable = true
     )
-    public void rendermixin(ItemStack itemStack, ItemTransforms.TransformType transformType, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, CallbackInfo ci){
+    public void renderByItemMixin(ItemStack itemStack, ItemTransforms.TransformType transformType, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, CallbackInfo ci){
         assert Minecraft.getInstance().player != null;
         ItemStack MainHandItemStack = Minecraft.getInstance().player.getMainHandItem();
 
