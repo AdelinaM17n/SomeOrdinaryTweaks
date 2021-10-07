@@ -13,7 +13,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-
 @Mixin(BlockEntityWithoutLevelRenderer.class)
 @Environment(EnvType.CLIENT)
 public abstract class BlockEntityWithoutLevelRendererMixin {
@@ -29,13 +28,10 @@ public abstract class BlockEntityWithoutLevelRendererMixin {
     public void renderByItemMixin(ItemStack itemStack, ItemTransforms.TransformType transformType, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, CallbackInfo ci){
         assert Minecraft.getInstance().player != null;
         ItemStack MainHandItemStack = Minecraft.getInstance().player.getMainHandItem();
-
-        if(
-                transformType == ItemTransforms.TransformType.FIRST_PERSON_LEFT_HAND && MainHandItemStack != null
+        if(transformType == ItemTransforms.TransformType.FIRST_PERSON_LEFT_HAND && MainHandItemStack != null
                 && !(MainHandItemStack.getItem() instanceof AxeItem || MainHandItemStack.getItem() instanceof SwordItem
                 || MainHandItemStack.getItem() instanceof ProjectileWeaponItem || MainHandItemStack.getItem() instanceof TridentItem)
         )
             ci.cancel();
-
     }
 }
