@@ -6,7 +6,8 @@
   "mixins": [
   ],
   "client": [
-    "BlockEntityWithoutLevelRendererMixin"
+    "BlockEntityWithoutLevelRendererMixin",
+    "MultiPlayerGameModeMixin"
   ],
   "injectors": {
     "defaultRequire": 1
