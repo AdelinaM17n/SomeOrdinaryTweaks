@@ -7,7 +7,7 @@
   ],
   "client": [
     "BlockEntityWithoutLevelRendererMixin",
-    "MultiPlayerGameModeMixin"
+    "ClientPacketListenerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
