@@ -1,5 +1,6 @@
 package io.github.maheevil.ordinarytweaks.mixin;
 
+import io.github.maheevil.ordinarytweaks.SomeOrdinaryTweaksMod;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -21,8 +22,10 @@ public abstract class ClientPacketListenerMixin {
             cancellable=true
     )
     public void onResourcePackSend(ClientboundResourcePackPacket par1, CallbackInfo ci) {
-        this.send(ServerboundResourcePackPacket.Action.ACCEPTED);
-        this.send(ServerboundResourcePackPacket.Action.SUCCESSFULLY_LOADED);
-        ci.cancel();
+        if(SomeOrdinaryTweaksMod.config.skipResourcePackDownload) {
+            this.send(ServerboundResourcePackPacket.Action.ACCEPTED);
+            this.send(ServerboundResourcePackPacket.Action.SUCCESSFULLY_LOADED);
+            ci.cancel();
+        }
     }
 }
