@@ -1,13 +1,14 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "io.github.maheevil.mixin",
+  "package": "io.github.maheevil.ordinarytweaks.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
   ],
   "client": [
     "BlockEntityWithoutLevelRendererMixin",
-    "ClientPacketListenerMixin"
+    "ClientPacketListenerMixin",
+    "AdvancementToastMixin"
   ],
   "injectors": {
     "defaultRequire": 1

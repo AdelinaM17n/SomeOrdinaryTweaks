@@ -1,4 +1,4 @@
-package io.github.maheevil.mixin;
+package io.github.maheevil.ordinarytweaks.mixin;
 
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.protocol.Packet;

@@ -1,6 +1,9 @@
-package io.github.maheevil.mixin;
+package io.github.maheevil.ordinarytweaks.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import io.github.maheevil.ordinarytweaks.SomeOrdinaryTweaksMod;
+import io.github.maheevil.ordinarytweaks.config.ModConfig;
+import me.shedaniel.autoconfig.AutoConfig;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -16,6 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BlockEntityWithoutLevelRenderer.class)
 @Environment(EnvType.CLIENT)
 public abstract class BlockEntityWithoutLevelRendererMixin {
+    //ModConfig config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
     @Inject(
             method = "renderByItem",
             at = @At(
@@ -26,12 +30,14 @@ public abstract class BlockEntityWithoutLevelRendererMixin {
             cancellable = true
     )
     public void renderByItemMixin(ItemStack itemStack, ItemTransforms.TransformType transformType, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, CallbackInfo ci){
-        assert Minecraft.getInstance().player != null;
-        ItemStack MainHandItemStack = Minecraft.getInstance().player.getMainHandItem();
-        if(transformType == ItemTransforms.TransformType.FIRST_PERSON_LEFT_HAND && MainHandItemStack != null
-                && !(MainHandItemStack.getItem() instanceof AxeItem || MainHandItemStack.getItem() instanceof SwordItem
-                || MainHandItemStack.getItem() instanceof ProjectileWeaponItem || MainHandItemStack.getItem() instanceof TridentItem)
-        )
-            ci.cancel();
+        if(SomeOrdinaryTweaksMod.config.invisibleShield){
+            assert Minecraft.getInstance().player != null;
+            ItemStack MainHandItemStack = Minecraft.getInstance().player.getMainHandItem();
+            if(transformType == ItemTransforms.TransformType.FIRST_PERSON_LEFT_HAND && MainHandItemStack != null
+                    && !(MainHandItemStack.getItem() instanceof AxeItem || MainHandItemStack.getItem() instanceof SwordItem
+                    || MainHandItemStack.getItem() instanceof ProjectileWeaponItem || MainHandItemStack.getItem() instanceof TridentItem)
+            )
+                ci.cancel();
+        }
     }
 }

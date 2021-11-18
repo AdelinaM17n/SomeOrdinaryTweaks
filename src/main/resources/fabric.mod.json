@@ -19,7 +19,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "io.github.maheevil.SomeOrdinaryTweaksMod"
+      "io.github.maheevil.ordinarytweaks.SomeOrdinaryTweaksMod"
+    ],
+    "modmenu" : [
+      "io.github.maheevil.ordinarytweaks.compat.modmenu.SomeOrdinaryTweaksIntergration"
     ]
   },
   "mixins": [

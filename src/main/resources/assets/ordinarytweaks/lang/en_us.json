@@ -1,0 +1,5 @@
+{
+  "text.autoconfig.ordinarytweaks.title": "Options",
+  "text.autoconfig.ordinarytweaks.option.invisibleShield": "Hide shield (When not holding a weapon)",
+  "text.autoconfig.ordinarytweaks.option.skipResourcePackDownload" : "Skip resourcepack download"
+}
