@@ -9,5 +9,5 @@ For setup instructions please see the [fabric wiki page](https://fabricmc.net/wi
 LGPL-3.0
 
 ## Planned features
-Shield Indicator crosshair and hotbar icon ~~("Inspired" from the combat snapshot)~~
+Shield Indicator crosshair and hotbar icon ~~("Inspired" from the combat snapshot)~~   
 Better controll over toasts (Recipe,Advancement,Tutorial,Other/Misc)
