@@ -8,8 +8,8 @@
   "client": [
     "BlockEntityWithoutLevelRendererMixin",
     "ClientPacketListenerMixin",
-    "ToastComponentMixin"
-
+    "ToastComponentMixin",
+    "GuiMixin"
   ],
   "injectors": {
     "defaultRequire": 1

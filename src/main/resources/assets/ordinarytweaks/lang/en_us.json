@@ -2,7 +2,7 @@
   "text.autoconfig.ordinarytweaks.title": "Options",
   "text.autoconfig.ordinarytweaks.option.invisibleShield": "Hide shield (When not holding a weapon)",
   "text.autoconfig.ordinarytweaks.option.skipResourcePackDownload" : "Skip resourcepack download",
-  "text.autoconfig.ordinarytweaks.option.unlockAllRecipes": "Unlock all recipes",
+  "text.autoconfig.ordinarytweaks.option.betterHorseHUD": "Better horse hunger HUD",
   "text.autoconfig.ordinarytweaks.option.hideTutorialToasts": "Hide tutorial popups",
   "text.autoconfig.ordinarytweaks.option.hideAdvancementToasts": "Hide advancement popups",
   "text.autoconfig.ordinarytweaks.option.hideRecipeUnlockToasts": "Hide recipe unlock popups"

@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ToastComponent.class)
 @Environment(EnvType.CLIENT)
-public class ToastComponentMixin {
+public abstract class ToastComponentMixin {
     @Inject(
             method = "addToast",
             at = @At("HEAD"),

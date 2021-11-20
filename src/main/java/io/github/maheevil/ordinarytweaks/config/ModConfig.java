@@ -10,7 +10,7 @@ public class ModConfig implements ConfigData {
      */
     public boolean invisibleShield = false;
     public boolean skipResourcePackDownload = false;
-    public boolean unlockAllRecipes = false;
+    public boolean betterHorseHUD = false;
     public boolean hideTutorialToasts = true;
     public boolean hideAdvancementToasts = false;
     public boolean hideRecipeUnlockToasts = false;
