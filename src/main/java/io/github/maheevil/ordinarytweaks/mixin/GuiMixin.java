@@ -14,7 +14,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(Gui.class)
 @Environment(EnvType.CLIENT)
@@ -43,9 +42,7 @@ public abstract class GuiMixin extends GuiComponent {
             ordinal = 13
     )
     private int modify_int_y(int in){
-        if(SomeOrdinaryTweaksMod.config.betterHorseHUD)
-            return 0;
-        return in;
+        return SomeOrdinaryTweaksMod.config.betterHorseHUD ? 0 : in;
     }
 
     @ModifyArg(
@@ -54,9 +51,8 @@ public abstract class GuiMixin extends GuiComponent {
             index = 0
     )
     private int modify_methodArg_vehicleMaxHearts(int original){
-        if(SomeOrdinaryTweaksMod.config.betterHorseHUD)
-            return this.getVisibleVehicleHeartRows(this.getVehicleMaxHearts(this.getPlayerVehicleWithHealth()));
-        return original;
+        return SomeOrdinaryTweaksMod.config.betterHorseHUD
+                ? this.getVisibleVehicleHeartRows(this.getVehicleMaxHearts(this.getPlayerVehicleWithHealth())) : original;
     }
 
 }
