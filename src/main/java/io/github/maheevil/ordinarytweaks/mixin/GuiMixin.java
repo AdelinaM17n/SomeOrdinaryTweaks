@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
@@ -47,12 +48,15 @@ public abstract class GuiMixin extends GuiComponent {
         return in;
     }
 
-   @Redirect(
+    @ModifyArg(
             method = "renderPlayerHealth",
-            at = @At(value = "INVOKE",target = "net/minecraft/client/gui/Gui.getVisibleVehicleHeartRows(I)I", ordinal = 0)
+            at = @At(value ="INVOKE", target = "net/minecraft/client/gui/Gui.getVisibleVehicleHeartRows(I)I", ordinal = 0),
+            index = 0
     )
-    private int redirect_int3(Gui instance, int i){
-        return this.getVisibleVehicleHeartRows(this.getVehicleMaxHearts(this.getPlayerVehicleWithHealth()));
+    private int modify_methodArg_vehicleMaxHearts(int original){
+        if(SomeOrdinaryTweaksMod.config.betterHorseHUD)
+            return this.getVisibleVehicleHeartRows(this.getVehicleMaxHearts(this.getPlayerVehicleWithHealth()));
+        return original;
     }
 
 }
