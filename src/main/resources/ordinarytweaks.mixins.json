@@ -9,7 +9,8 @@
     "BlockEntityWithoutLevelRendererMixin",
     "ClientPacketListenerMixin",
     "ToastComponentMixin",
-    "GuiMixin"
+    "GuiMixin",
+    "DeathScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
