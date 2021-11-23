@@ -15,5 +15,5 @@ public class ModConfig implements ConfigData {
     public boolean hideAdvancementToasts = false;
     public boolean hideRecipeUnlockToasts = false;
     public boolean deathCordsClipBoardButton = true;
-    public boolean deathCordsChatMessage = false;
+    public boolean disablePortalGUIClosing = false;
 }
