@@ -5,5 +5,7 @@
   "text.autoconfig.ordinarytweaks.option.betterHorseHUD": "Better horse health HUD",
   "text.autoconfig.ordinarytweaks.option.hideTutorialToasts": "Hide tutorial popups",
   "text.autoconfig.ordinarytweaks.option.hideAdvancementToasts": "Hide advancement popups",
-  "text.autoconfig.ordinarytweaks.option.hideRecipeUnlockToasts": "Hide recipe unlock popups"
+  "text.autoconfig.ordinarytweaks.option.hideRecipeUnlockToasts": "Hide recipe unlock popups",
+  "text.autoconfig.ordinarytweaks.option.disablePortalGUIClosing": "Disable Nether Portals closing GUIs",
+  "text.autoconfig.ordinarytweaks.option.deathCordsClipBoardButton": "Death cords in the death screen"
 }
