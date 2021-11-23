@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BlockEntityWithoutLevelRenderer.class)
 @Environment(EnvType.CLIENT)
 public abstract class BlockEntityWithoutLevelRendererMixin {
-    //ModConfig config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
+
     @Inject(
             method = "renderByItem",
             at = @At(
