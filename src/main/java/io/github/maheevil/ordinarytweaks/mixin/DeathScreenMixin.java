@@ -20,7 +20,7 @@ import java.util.List;
 
 @Mixin(DeathScreen.class)
 @Environment(EnvType.CLIENT)
-public class DeathScreenMixin extends Screen {
+public abstract class DeathScreenMixin extends Screen {
     @Shadow
     @Final
     private List<Button> exitButtons;
