@@ -2,8 +2,6 @@ package io.github.maheevil.ordinarytweaks.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.maheevil.ordinarytweaks.SomeOrdinaryTweaksMod;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.client.gui.screens.Screen;
@@ -19,7 +17,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.List;
 
 @Mixin(DeathScreen.class)
-@Environment(EnvType.CLIENT)
 public abstract class DeathScreenMixin extends Screen {
     @Shadow
     @Final

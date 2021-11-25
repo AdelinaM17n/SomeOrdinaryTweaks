@@ -2,10 +2,6 @@ package io.github.maheevil.ordinarytweaks.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.maheevil.ordinarytweaks.SomeOrdinaryTweaksMod;
-import io.github.maheevil.ordinarytweaks.config.ModConfig;
-import me.shedaniel.autoconfig.AutoConfig;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -17,7 +13,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(BlockEntityWithoutLevelRenderer.class)
-@Environment(EnvType.CLIENT)
 public abstract class BlockEntityWithoutLevelRendererMixin {
 
     @Inject(

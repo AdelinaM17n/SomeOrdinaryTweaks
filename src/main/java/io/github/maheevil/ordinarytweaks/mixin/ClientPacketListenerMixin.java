@@ -2,8 +2,6 @@ package io.github.maheevil.ordinarytweaks.mixin;
 
 import io.github.maheevil.ordinarytweaks.SomeOrdinaryTweaksMod;
 import net.minecraft.client.multiplayer.ClientPacketListener;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundResourcePackPacket;
 import net.minecraft.network.protocol.game.ServerboundResourcePackPacket;
 import org.spongepowered.asm.mixin.Mixin;
