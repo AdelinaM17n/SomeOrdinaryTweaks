@@ -28,7 +28,7 @@ public class ItemInHandRendererMixin {
         ItemTransforms.TransformType comparisonTransformType = Minecraft.getInstance().player.getMainArm() == HumanoidArm.RIGHT
                 ? ItemTransforms.TransformType.FIRST_PERSON_LEFT_HAND : ItemTransforms.TransformType.FIRST_PERSON_RIGHT_HAND;
 
-        if(SomeOrdinaryTweaksMod.config.insibleTotem && itemStack.getItem() == Items.TOTEM_OF_UNDYING
+        if(SomeOrdinaryTweaksMod.config.invisibleTotem && itemStack.getItem() == Items.TOTEM_OF_UNDYING
                 && transformType == comparisonTransformType)
             ci.cancel();
     }

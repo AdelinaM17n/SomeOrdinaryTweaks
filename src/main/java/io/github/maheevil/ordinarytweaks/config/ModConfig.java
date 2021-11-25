@@ -9,7 +9,7 @@ public class ModConfig implements ConfigData {
      * the values below are default values
      */
     public boolean invisibleShield = false;
-    public boolean insibleTotem = false;
+    public boolean invisibleTotem = false;
     public boolean skipResourcePackDownload = false;
     public boolean betterHorseHUD = false;
     public boolean hideTutorialToasts = true;
