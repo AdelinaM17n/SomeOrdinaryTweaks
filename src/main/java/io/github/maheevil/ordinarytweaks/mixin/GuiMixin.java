@@ -62,7 +62,9 @@ public abstract class GuiMixin extends GuiComponent {
             at = @At(value = "INVOKE", target = "net/minecraft/client/player/LocalPlayer.isRidingJumpable()Z", ordinal = 0)
     )
     private boolean redirect_isRidingJumpable_IF(LocalPlayer instance){
-        return SomeOrdinaryTweaksMod.config.betterHorseHUD ? this.minecraft.options.keyJump.isDown() && instance.isRidingJumpable() : instance.isRidingJumpable();
+        return SomeOrdinaryTweaksMod.config.betterHorseHUD && this.minecraft.gameMode.getPlayerMode() != GameType.CREATIVE
+                ? this.minecraft.options.keyJump.isDown() && instance.isRidingJumpable()
+                : instance.isRidingJumpable();
     }
 
 }
