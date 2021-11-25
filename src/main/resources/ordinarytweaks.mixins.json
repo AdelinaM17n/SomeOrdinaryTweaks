@@ -4,14 +4,15 @@
   "package": "io.github.maheevil.ordinarytweaks.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "LocalPlayerMixin"
   ],
   "client": [
+    "LocalPlayerMixin",
     "BlockEntityWithoutLevelRendererMixin",
     "ClientPacketListenerMixin",
     "DeathScreenMixin",
     "GuiMixin",
-    "ToastComponentMixin"
+    "ToastComponentMixin",
+    "ItemInHandRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 0
