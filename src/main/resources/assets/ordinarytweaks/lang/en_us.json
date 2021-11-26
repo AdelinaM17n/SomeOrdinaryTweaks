@@ -10,6 +10,6 @@
   "text.autoconfig.ordinarytweaks.option.deathCordsClipBoardButton": "Death cords in the death screen",
   "text.autoconfig.ordinarytweaks.option.invisibleTotem": "Hide totem-of-undying in offhand",
   "text.autoconfig.ordinarytweaks.option.invisibleShield.@PrefixText": "Rendering/GUI Tweaks",
-  "text.autoconfig.ordinarytweaks.option.hideTutorialToasts.@PrefixText":"Toast Control",
-  "text.autoconfig.ordinarytweaks.option.deathCordsClipBoardButton.@PrefixText":"General Tweaks"
+  "text.autoconfig.ordinarytweaks.option.hideTutorialToasts.@PrefixText":"\nToast Control",
+  "text.autoconfig.ordinarytweaks.option.deathCordsClipBoardButton.@PrefixText":"\nGeneral Tweaks"
 }
