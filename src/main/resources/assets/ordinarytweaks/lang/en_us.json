@@ -8,5 +8,8 @@
   "text.autoconfig.ordinarytweaks.option.hideRecipeUnlockToasts": "Hide recipe unlock toasts (popups)",
   "text.autoconfig.ordinarytweaks.option.disablePortalGUIClosing": "Disable Nether Portals closing GUIs",
   "text.autoconfig.ordinarytweaks.option.deathCordsClipBoardButton": "Death cords in the death screen",
-  "text.autoconfig.ordinarytweaks.option.invisibleTotem": "Hide totem-of-undying in offhand"
+  "text.autoconfig.ordinarytweaks.option.invisibleTotem": "Hide totem-of-undying in offhand",
+  "text.autoconfig.ordinarytweaks.option.invisibleShield.@PrefixText": "Rendering/GUI Tweaks",
+  "text.autoconfig.ordinarytweaks.option.hideTutorialToasts.@PrefixText":"Toast Control",
+  "text.autoconfig.ordinarytweaks.option.deathCordsClipBoardButton.@PrefixText":"General Tweaks"
 }
