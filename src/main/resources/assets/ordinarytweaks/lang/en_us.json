@@ -11,8 +11,5 @@
   "text.autoconfig.ordinarytweaks.option.invisibleTotem": "Hide totem-of-undying in offhand",
   "text.autoconfig.ordinarytweaks.option.invisibleShield.@PrefixText": "Rendering/GUI Tweaks",
   "text.autoconfig.ordinarytweaks.option.hideTutorialToasts.@PrefixText":"Toast Control",
-  "text.autoconfig.ordinarytweaks.option.deathCordsClipBoardButton.@PrefixText":"General Tweaks",
-  "text.autoconfig.ordinarytweaks.category.Render/Gui Tweaks": "   Render/Gui Tweaks   ",
-  "text.autoconfig.ordinarytweaks.category.Toast Control": "   Toast Control   ",
-  "text.autoconfig.ordinarytweaks.category.General Tweaks": "   General Tweaks   "
+  "text.autoconfig.ordinarytweaks.option.deathCordsClipBoardButton.@PrefixText":"General Tweaks"
 }
