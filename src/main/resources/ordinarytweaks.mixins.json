@@ -12,7 +12,8 @@
     "DeathScreenMixin",
     "GuiMixin",
     "ToastComponentMixin",
-    "ItemInHandRendererMixin"
+    "ItemInHandRendererMixin",
+    "SplashManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 0
