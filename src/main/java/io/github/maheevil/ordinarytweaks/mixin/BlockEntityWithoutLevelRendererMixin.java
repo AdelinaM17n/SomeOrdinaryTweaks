@@ -19,7 +19,7 @@ public abstract class BlockEntityWithoutLevelRendererMixin {
     @Inject(
             method = "renderByItem",
             at = @At(
-                    target = "net/minecraft/world/item/ItemStack.getTagElement(Ljava/lang/String;)Lnet/minecraft/nbt/CompoundTag;",
+                    target = "net/minecraft/world/item/BlockItem.getBlockEntityData(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/nbt/CompoundTag;",
                     shift = At.Shift.BEFORE,
                     value = "INVOKE"
             ),
