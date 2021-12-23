@@ -1,7 +1,7 @@
 {
   "text.autoconfig.ordinarytweaks.title": "Options",
   "text.autoconfig.ordinarytweaks.option.invisibleShield": "Hide shield (When not holding a weapon)",
-  "text.autoconfig.ordinarytweaks.option.skipResourcePackDownload" : "Skip resourcepack download",
+  "text.autoconfig.ordinarytweaks.option.skipResourcePackDownload": "Skip resourcepack download",
   "text.autoconfig.ordinarytweaks.option.betterHorseHUD": "Better horse HUD",
   "text.autoconfig.ordinarytweaks.option.hideTutorialToasts": "Hide tutorial toasts (popups)",
   "text.autoconfig.ordinarytweaks.option.hideAdvancementToasts": "Hide advancement toasts (popups)",
@@ -9,6 +9,7 @@
   "text.autoconfig.ordinarytweaks.option.disablePortalGUIClosing": "Disable Nether Portals closing GUIs",
   "text.autoconfig.ordinarytweaks.option.deathCordsClipBoardButton": "Death cords in the death screen",
   "text.autoconfig.ordinarytweaks.option.invisibleTotem": "Hide totem-of-undying in offhand",
+  "text.autoconfig.ordinarytweaks.option.doNotPlantEdiblesIfHungry": "Smarter Edible Crop Placement",
   "text.autoconfig.ordinarytweaks.option.invisibleShield.@PrefixText": "Rendering/GUI Tweaks",
   "text.autoconfig.ordinarytweaks.option.hideTutorialToasts.@PrefixText":"\nToast Control",
   "text.autoconfig.ordinarytweaks.option.deathCordsClipBoardButton.@PrefixText":"\nGeneral Tweaks"

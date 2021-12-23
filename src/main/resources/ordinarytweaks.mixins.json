@@ -13,7 +13,8 @@
     "GuiMixin",
     "ToastComponentMixin",
     "ItemInHandRendererMixin",
-    "SplashManagerMixin"
+    "SplashManagerMixin",
+    "MultiPlayerGameModeMixin"
   ],
   "injectors": {
     "defaultRequire": 0
