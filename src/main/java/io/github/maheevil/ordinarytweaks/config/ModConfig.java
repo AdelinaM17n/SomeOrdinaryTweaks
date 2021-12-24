@@ -20,7 +20,7 @@ public class ModConfig implements ConfigData {
     @ConfigEntry.Gui.PrefixText
     public boolean deathCordsClipBoardButton = true;
     public boolean disablePortalGUIClosing = false;
-    public boolean doNotPlantEdiblesIfHungry = true;
+    public boolean doNotPlantEdiblesIfHungry = false;
     public boolean skipResourcePackDownload = false;
 
 
