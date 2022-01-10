@@ -10,3 +10,6 @@ LGPL-3.0
 
 ## Planned features
 Shield Indicator crosshair and hotbar icon ~~("Inspired" from the combat snapshot)~~   
+
+## Forge port?
+No, I tried and it gave me a headache. Might try again later if I am bored.
