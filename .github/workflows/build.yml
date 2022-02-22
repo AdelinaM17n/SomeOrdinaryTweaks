@@ -15,7 +15,7 @@ jobs:
           17    # Minimum supported by Minecraft
         ]
         # and run on both Linux and Windows
-        os: [ubuntu-20.04, windows-latest]
+        os: ubuntu-latest
     runs-on: ${{ matrix.os }}
     steps:
       - name: checkout repository
@@ -27,10 +27,8 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
       - name: make gradle wrapper executable
-        if: ${{ runner.os != 'Windows' }}
         run: chmod +x ./gradlew
       - name: get the jar file dependencies
-        if: ${{ runner.os != 'Windows' }}
         run: curl -o jarDeps/AdvancementPlaques-1.18-fabric-1.4.4.jar https://cdn.discordapp.com/attachments/945630368147599360/945630431846469632/AdvancementPlaques-1.18-fabric-1.4.4.jar
       - name: build
         run: ./gradlew build
