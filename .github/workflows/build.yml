@@ -31,7 +31,7 @@ jobs:
         run: chmod +x ./gradlew
       - name: get the jar file dependencies
         if: ${{ runner.os != 'Windows' }}
-          run: curl -0 jarDeps/AdvancementPlaques-1.18-fabric-1.4.4.jar https://cdn.discordapp.com/attachments/945630368147599360/945630431846469632/AdvancementPlaques-1.18-fabric-1.4.4.jar
+        run: curl -0 jarDeps/AdvancementPlaques-1.18-fabric-1.4.4.jar https://cdn.discordapp.com/attachments/945630368147599360/945630431846469632/AdvancementPlaques-1.18-fabric-1.4.4.jar
       - name: build
         run: ./gradlew build
       - name: capture build artifacts
