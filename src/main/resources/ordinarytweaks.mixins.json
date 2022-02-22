@@ -6,15 +6,16 @@
   "mixins": [
   ],
   "client": [
-    "LocalPlayerMixin",
     "BlockEntityWithoutLevelRendererMixin",
     "ClientPacketListenerMixin",
     "DeathScreenMixin",
     "GuiMixin",
-    "ToastComponentMixin",
     "ItemInHandRendererMixin",
+    "LocalPlayerMixin",
+    "MultiPlayerGameModeMixin",
     "SplashManagerMixin",
-    "MultiPlayerGameModeMixin"
+    "ToastComponentMixin",
+    "compat.advancementPlaques.AdvancementPlaqueToastGui"
   ],
   "injectors": {
     "defaultRequire": 0

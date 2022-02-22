@@ -37,6 +37,7 @@ dependencies {
 	modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 
 	modApi("me.shedaniel.cloth:cloth-config-fabric:6.0.42") { exclude(group: "net.fabricmc.fabric-api") }
+	modImplementation files('jarDeps/AdvancementPlaques-1.18-fabric-1.4.4.jar')
 }
 
 processResources {
