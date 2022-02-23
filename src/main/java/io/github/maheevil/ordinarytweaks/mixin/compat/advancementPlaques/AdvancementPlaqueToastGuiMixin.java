@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Pseudo
 @Mixin(AdvancementPlaquesToastGui.class)
-public class AdvancementPlaqueToastGui {
+public class AdvancementPlaqueToastGuiMixin {
     @Inject(
             method = "addToast",
             at = @At("HEAD"),

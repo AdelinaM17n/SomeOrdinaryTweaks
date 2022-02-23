@@ -37,7 +37,12 @@ dependencies {
 	modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 
 	modApi("me.shedaniel.cloth:cloth-config-fabric:6.0.42") { exclude(group: "net.fabricmc.fabric-api") }
-	modImplementation files('jarDeps/AdvancementPlaques-1.18-fabric-1.4.4.jar')
+
+	if(file('jarDeps/AdvancementPlaques-1.18-fabric-1.4.4.jar').exists()){
+		modCompileOnly files('jarDeps/AdvancementPlaques-1.18-fabric-1.4.4.jar')
+	}else {
+		project.logger.lifecycle('\nWARNING - Please add all the jar files needed to jarDeps Directory after the project import is done, it is needed for the mod to compile\n')
+	}
 }
 
 processResources {
