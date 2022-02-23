@@ -1,6 +1,8 @@
 package io.github.maheevil.ordinarytweaks.mixin.compat.advancementPlaques;
 
 import com.anthonyhilyard.advancementplaques.AdvancementPlaquesToastGui;
+import io.github.maheevil.ordinarytweaks.SomeOrdinaryTweaksMod;
+import net.minecraft.client.gui.components.toasts.AdvancementToast;
 import net.minecraft.client.gui.components.toasts.Toast;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
@@ -16,7 +18,8 @@ public class AdvancementPlaqueToastGui {
             at = @At("HEAD"),
             cancellable = true
     )
-    public void inJectAtHeadAddToast(Toast displayInfo, CallbackInfo ci){
-        ci.cancel();
+    public void inJectAtHeadAddToast(Toast toast, CallbackInfo ci){
+        if(toast instanceof AdvancementToast && SomeOrdinaryTweaksMod.config.hideAdvancementToasts)
+            ci.cancel();
     }
 }
