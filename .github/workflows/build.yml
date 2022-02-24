@@ -20,8 +20,6 @@ jobs:
           java-version: 17
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
-      - name: get the jar file dependencies
-        run: curl -o jarDeps/AdvancementPlaques-1.18-fabric-1.4.4.jar https://cdn.discordapp.com/attachments/945630368147599360/945630431846469632/AdvancementPlaques-1.18-fabric-1.4.4.jar
       - name: build
         run: ./gradlew build
       - name: capture build artifacts
