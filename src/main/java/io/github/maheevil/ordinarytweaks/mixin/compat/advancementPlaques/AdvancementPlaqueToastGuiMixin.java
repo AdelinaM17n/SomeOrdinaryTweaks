@@ -17,8 +17,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(targets = "com.anthonyhilyard.advancementplaques.AdvancementPlaquesToastGui")
 public class AdvancementPlaqueToastGuiMixin {
     @Inject(
-            method = "Lcom/anthonyhilyard/advancementplaques/AdvancementPlaquesToastGui;addToast(Lnet/minecraft/client/gui/components/toasts/Toast;)V",//method = "addToast",
+            method = "Lcom/anthonyhilyard/advancementplaques/AdvancementPlaquesToastGui;method_1999(Lnet/minecraft/class_368;)V",//method = "addToast",
             at = @At("HEAD"),
+            remap = false,
             cancellable = true
     )
     public void inJectAtHeadAddToast(Toast toast, CallbackInfo ci){
