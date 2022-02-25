@@ -3,6 +3,7 @@
   "minVersion": "0.8",
   "package": "io.github.maheevil.ordinarytweaks.mixin",
   "compatibilityLevel": "JAVA_16",
+  "plugin": "io.github.maheevil.ordinarytweaks.OrdinaryTweaksMixinPlugin",
   "mixins": [
   ],
   "client": [
