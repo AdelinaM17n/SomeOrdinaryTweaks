@@ -41,7 +41,7 @@ dependencies {
 	include "com.github.Fallen-Breath:conditional-mixin:v0.1.2"
 
 	modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
-	modApi("me.shedaniel.cloth:cloth-config-fabric:6.0.42") { exclude(group: "net.fabricmc.fabric-api") }
+	modApi("me.shedaniel.cloth:cloth-config-fabric:6.2.57") { exclude(group: "net.fabricmc.fabric-api") }
 }
 
 processResources {
