@@ -27,7 +27,7 @@ public abstract class MultiPlayerGameModeMixin {
             at = @At("HEAD"),
             cancellable = true
     )
-    public void injectTest(MutableObject mutableObject, LocalPlayer localPlayer, InteractionHand interactionHand, BlockHitResult blockHitResult, int i, CallbackInfoReturnable<Packet> cir){
+    public void injectTest(MutableObject<InteractionResult> mutableObject, LocalPlayer localPlayer, InteractionHand interactionHand, BlockHitResult blockHitResult, int i, CallbackInfoReturnable<Packet> cir){
         Item itemInHand = localPlayer.getItemInHand(interactionHand).getItem();
         boolean isValidItem = itemInHand instanceof BlockItem && itemInHand.isEdible();
         if(SomeOrdinaryTweaksMod.config.doNotPlantEdiblesIfHungry && localPlayer.getFoodData().needsFood() && isValidItem) {
