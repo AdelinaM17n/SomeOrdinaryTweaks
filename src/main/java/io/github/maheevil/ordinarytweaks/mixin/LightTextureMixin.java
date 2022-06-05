@@ -1,5 +1,6 @@
 package io.github.maheevil.ordinarytweaks.mixin;
 
+import io.github.maheevil.ordinarytweaks.SomeOrdinaryTweaksMod;
 import net.minecraft.client.renderer.LightTexture;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,6 +16,6 @@ public abstract class LightTextureMixin {
           //print = true
   )
   public float br(float value){
-      return 100;
+      return SomeOrdinaryTweaksMod.config.fullBright ? 100 : value;
   }
 }

@@ -13,6 +13,7 @@ public class ModConfig implements ConfigData {
     public boolean invisibleShield = false;
     public boolean invisibleTotem = false;
     public boolean betterHorseHUD = false;
+    public boolean fullBright = false;
     @ConfigEntry.Gui.PrefixText
     public boolean hideTutorialToasts = true;
     public boolean hideAdvancementToasts = false;
