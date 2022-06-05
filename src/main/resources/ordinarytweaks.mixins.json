@@ -16,6 +16,7 @@
     "MultiPlayerGameModeMixin",
     "SplashManagerMixin",
     "ToastComponentMixin",
+    "LightTextureMixin",
     "compat.advancementPlaques.AdvancementPlaqueToastGuiMixin"
   ],
   "injectors": {
