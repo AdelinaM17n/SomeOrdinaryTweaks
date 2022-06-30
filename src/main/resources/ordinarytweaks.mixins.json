@@ -16,6 +16,7 @@
     "SplashManagerMixin",
     "ToastComponentMixin",
     "LightTextureMixin",
+    "GameRendererMixin",
     "compat.advancementPlaques.AdvancementPlaqueToastGuiMixin"
   ],
   "injectors": {
