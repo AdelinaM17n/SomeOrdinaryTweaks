@@ -3,6 +3,7 @@ package io.github.maheevil.ordinarytweaks.mixin;
 import io.github.maheevil.ordinarytweaks.SomeOrdinaryTweaksMod;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.Direction;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ServerboundUseItemPacket;
 import net.minecraft.world.InteractionHand;
@@ -10,6 +11,10 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.phys.BlockHitResult;
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.spongepowered.asm.mixin.Mixin;
@@ -29,11 +34,30 @@ public abstract class MultiPlayerGameModeMixin {
     )
     public void injectTest(MutableObject<InteractionResult> mutableObject, LocalPlayer localPlayer, InteractionHand interactionHand, BlockHitResult blockHitResult, int i, CallbackInfoReturnable<Packet<?>> cir){
         Item itemInHand = localPlayer.getItemInHand(interactionHand).getItem();
-        boolean isValidItem = itemInHand instanceof BlockItem && itemInHand.isEdible();
-        if(SomeOrdinaryTweaksMod.config.doNotPlantEdiblesIfHungry && localPlayer.getFoodData().needsFood() && isValidItem && !localPlayer.isSecondaryUseActive()) {
-            mutableObject.setValue(useItem(localPlayer, interactionHand));
-            cir.setReturnValue(new ServerboundUseItemPacket(interactionHand, i));
-            cir.cancel();
+
+        if(itemInHand instanceof BlockItem blockItem){
+
+            if(SomeOrdinaryTweaksMod.config.noDoubleSlabPlacement && blockHitResult.getDirection().getAxis() == Direction.Axis.Y && blockItem.getBlock() instanceof SlabBlock){
+                BlockState blockState = localPlayer.level.getBlockState(blockHitResult.getBlockPos());
+                if(blockState.getBlock() instanceof SlabBlock){
+                    var type = blockState.getValue(SlabBlock.TYPE);
+                    if(type == SlabType.BOTTOM){
+                        mutableObject.setValue(InteractionResult.CONSUME);
+                        cir.setReturnValue(new ServerboundUseItemPacket(interactionHand,i));
+                        cir.cancel();
+                    }
+                }
+            }
+
+            if(SomeOrdinaryTweaksMod.config.doNotPlantEdiblesIfHungry &&
+                    localPlayer.getFoodData().needsFood() &&
+                    blockItem.isEdible() &&
+                    !localPlayer.isSecondaryUseActive())
+            {
+                mutableObject.setValue(useItem(localPlayer, interactionHand));
+                cir.setReturnValue(new ServerboundUseItemPacket(interactionHand, i));
+                cir.cancel();
+            }
         }
     }
 

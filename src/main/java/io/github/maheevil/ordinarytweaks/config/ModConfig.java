@@ -22,6 +22,7 @@ public class ModConfig implements ConfigData {
     public boolean deathCordsClipBoardButton = true;
     public boolean disablePortalGUIClosing = false;
     public boolean doNotPlantEdiblesIfHungry = false;
+    public boolean noDoubleSlabPlacement = false;
     public boolean skipResourcePackDownload = false;
 
 
