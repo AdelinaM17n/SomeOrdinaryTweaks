@@ -11,10 +11,9 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.phys.BlockHitResult;
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.spongepowered.asm.mixin.Mixin;
@@ -37,22 +36,27 @@ public abstract class MultiPlayerGameModeMixin {
 
         if(itemInHand instanceof BlockItem blockItem){
 
-            if(SomeOrdinaryTweaksMod.config.noDoubleSlabPlacement && blockHitResult.getDirection().getAxis() == Direction.Axis.Y && blockItem.getBlock() instanceof SlabBlock){
-                BlockState blockState = localPlayer.level.getBlockState(blockHitResult.getBlockPos());
-                if(blockState.getBlock() instanceof SlabBlock){
-                    var type = blockState.getValue(SlabBlock.TYPE);
-                    if(type == SlabType.BOTTOM){
+            if(SomeOrdinaryTweaksMod.config.noDoubleSlabPlacement && blockItem.getBlock() instanceof SlabBlock){
+                Level level = localPlayer.clientLevel;
+                Direction direction = blockHitResult.getDirection();
+                boolean isHittingYAxis = direction.getAxis() == Direction.Axis.Y;
+                BlockState blockState = isHittingYAxis
+                        ? level.getBlockState(blockHitResult.getBlockPos())
+                        : level.getBlockState(blockHitResult.getBlockPos().relative(direction));
+
+                if (blockState.getBlock() instanceof SlabBlock
+                        || (isHittingYAxis && level.getBlockState(blockHitResult.getBlockPos().relative(direction)).getBlock() instanceof SlabBlock))
+                {
                         mutableObject.setValue(InteractionResult.CONSUME);
                         cir.setReturnValue(new ServerboundUseItemPacket(interactionHand,i));
                         cir.cancel();
-                    }
                 }
             }
 
-            if(SomeOrdinaryTweaksMod.config.doNotPlantEdiblesIfHungry &&
-                    localPlayer.getFoodData().needsFood() &&
-                    blockItem.isEdible() &&
-                    !localPlayer.isSecondaryUseActive())
+            if(SomeOrdinaryTweaksMod.config.doNotPlantEdiblesIfHungry
+                    && localPlayer.getFoodData().needsFood()
+                    && blockItem.isEdible()
+                    && !localPlayer.isSecondaryUseActive())
             {
                 mutableObject.setValue(useItem(localPlayer, interactionHand));
                 cir.setReturnValue(new ServerboundUseItemPacket(interactionHand, i));
