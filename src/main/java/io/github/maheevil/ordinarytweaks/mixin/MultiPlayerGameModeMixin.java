@@ -14,6 +14,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.phys.BlockHitResult;
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.spongepowered.asm.mixin.Mixin;
@@ -44,7 +45,7 @@ public abstract class MultiPlayerGameModeMixin {
                         ? level.getBlockState(blockHitResult.getBlockPos())
                         : level.getBlockState(blockHitResult.getBlockPos().relative(direction));
 
-                if (blockState.getBlock() instanceof SlabBlock
+                if( (blockState.getBlock() instanceof SlabBlock && blockState.getValue(SlabBlock.TYPE).equals(SlabType.BOTTOM))
                         || (isHittingYAxis && level.getBlockState(blockHitResult.getBlockPos().relative(direction)).getBlock() instanceof SlabBlock))
                 {
                         mutableObject.setValue(InteractionResult.CONSUME);
