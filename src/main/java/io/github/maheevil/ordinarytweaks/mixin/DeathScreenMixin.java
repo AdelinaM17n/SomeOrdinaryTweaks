@@ -71,10 +71,27 @@ public abstract class DeathScreenMixin extends Screen {
     }
 
     @Inject(
-            method = "method_19809",
-            at = @At("TAIL")
+            method = "method_19809(Lnet/minecraft/client/gui/components/Button;)V",
+            at = @At(
+                    value = "INVOKE",
+                    target = "net/minecraft/client/Minecraft.setScreen (Lnet/minecraft/client/gui/screens/Screen;)V",
+                    shift = At.Shift.AFTER
+            )
     )
-    private void handle(Button button, CallbackInfo info){
+    private void handle(Button button, CallbackInfo ci){
+        if(SomeOrdinaryTweaksMod.config.sendDeathCords)
+            this.minecraft.player.sendSystemMessage(Component.literal(lastDeathCord));
+    }
+
+    @Inject(
+            method = "confirmResult",
+            at = @At(
+                    value = "INVOKE",
+                    target = "net/minecraft/client/Minecraft.setScreen (Lnet/minecraft/client/gui/screens/Screen;)V",
+                    shift = At.Shift.AFTER
+            )
+    )
+    private void handleConfirm(boolean bl, CallbackInfo ci){
         if(SomeOrdinaryTweaksMod.config.sendDeathCords)
             this.minecraft.player.sendSystemMessage(Component.literal(lastDeathCord));
     }
