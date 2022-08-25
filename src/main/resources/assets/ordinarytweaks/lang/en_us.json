@@ -9,6 +9,7 @@
   "text.autoconfig.ordinarytweaks.option.hideRecipeUnlockToasts": "Hide recipe unlock toasts (popups)",
   "text.autoconfig.ordinarytweaks.option.disablePortalGUIClosing": "Disable Nether Portals closing GUIs",
   "text.autoconfig.ordinarytweaks.option.deathCordsClipBoardButton": "Death cords in the death screen",
+  "text.autoconfig.ordinarytweaks.option.sendDeathCords": "Send Death Cords In Chat",
   "text.autoconfig.ordinarytweaks.option.invisibleTotem": "Hide totem-of-undying in offhand",
   "text.autoconfig.ordinarytweaks.option.doNotPlantEdiblesIfHungry": "Smarter Edible Crop Placement",
   "text.autoconfig.ordinarytweaks.option.noDoubleSlabPlacement": "No Double Slab Placement",

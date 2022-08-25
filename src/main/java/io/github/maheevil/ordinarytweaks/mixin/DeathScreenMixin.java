@@ -10,6 +10,7 @@ import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -21,6 +22,8 @@ public abstract class DeathScreenMixin extends Screen {
     @Shadow
     @Final
     private List<Button> exitButtons;
+    @Unique
+    private String lastDeathCord;
 
     protected DeathScreenMixin(Component component) {
         super(component);
@@ -52,13 +55,27 @@ public abstract class DeathScreenMixin extends Screen {
             )
     )
     protected void init(CallbackInfo ci){
+        String xyz =  this.minecraft.player.blockPosition().getX() + " / " + minecraft.player.blockPosition().getY() + " / " + minecraft.player.blockPosition().getZ();
         if(SomeOrdinaryTweaksMod.config.deathCordsClipBoardButton){
-            assert minecraft != null;
-            assert minecraft.player != null;
-            String xyz =  minecraft.player.blockPosition().getX() + " / " + minecraft.player.blockPosition().getY() + " / " + minecraft.player.blockPosition().getZ();
-            this.exitButtons.add(this.addRenderableWidget(new Button(this.width / 2 - 100, this.height / 4 + 120, 200, 20, Component.translatable("Copy Location To Clipboard"), (buttonx) -> {
-                this.minecraft.keyboardHandler.setClipboard(xyz);
-            })));
+            this.exitButtons.add(
+                    this.addRenderableWidget(
+                            new Button(
+                                    this.width / 2 - 100, this.height / 4 + 120, 200, 20,
+                                    Component.translatable("Copy Location To Clipboard"),
+                                    (buttonx) -> this.minecraft.keyboardHandler.setClipboard(xyz)
+                            )
+                    )
+            );
         }
+        this.lastDeathCord = xyz;
+    }
+
+    @Inject(
+            method = "method_19809",
+            at = @At("TAIL")
+    )
+    private void handle(Button button, CallbackInfo info){
+        if(SomeOrdinaryTweaksMod.config.sendDeathCords)
+            this.minecraft.player.sendSystemMessage(Component.literal(lastDeathCord));
     }
 }
