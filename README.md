@@ -15,8 +15,8 @@ Shield Indicator crosshair and hotbar icon ~~("Inspired" from the combat snapsho
 [cloth-config by shedaniel](https://github.com/shedaniel/cloth-config)   
 
 
-## Forge port?
-No, I tried and it gave me a headache. Might try again later if I am bored.
+## Forge port
+https://github.com/MaheEvil/SomeOrdinaryTweaks-Forge
 
 ## Quilt?
 I have removed the usage of mixin plugins, so fabric jar should be usable in quilt   
