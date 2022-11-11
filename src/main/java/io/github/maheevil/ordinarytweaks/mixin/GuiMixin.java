@@ -7,6 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.GameType;
 import org.spongepowered.asm.mixin.Final;
@@ -67,4 +68,18 @@ public abstract class GuiMixin extends GuiComponent {
                 : instance.isRidingJumpable();
     }
 
+    @SuppressWarnings("all") // MCDEV STOP TRYING TO GASLIGHT ME
+    @ModifyVariable(
+            method = "renderHotbar",
+            at = @At("STORE"),
+            index =  5,
+            ordinal = 0
+    )
+    private HumanoidArm modifyHumanoidArm(HumanoidArm value){
+        return switch(SomeOrdinaryTweaksMod.config.offHandSlotLoc){
+            case VANILA -> value;
+            case LEFT -> HumanoidArm.LEFT;
+            case RIGHT -> HumanoidArm.RIGHT;
+        };
+    }
 }

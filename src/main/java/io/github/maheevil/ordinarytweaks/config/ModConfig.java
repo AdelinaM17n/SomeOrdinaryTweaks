@@ -1,5 +1,6 @@
 package io.github.maheevil.ordinarytweaks.config;
 
+import io.github.maheevil.ordinarytweaks.config.enums.OffHandSlotLoc;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
@@ -14,6 +15,8 @@ public class ModConfig implements ConfigData {
     public boolean invisibleTotem = false;
     public boolean betterHorseHUD = false;
     public boolean fullBright = false;
+    @ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
+    public OffHandSlotLoc offHandSlotLoc = OffHandSlotLoc.VANILA;
     @ConfigEntry.Gui.PrefixText
     public boolean hideTutorialToasts = true;
     public boolean hideAdvancementToasts = false;
