@@ -1,5 +1,6 @@
 package io.github.maheevil.ordinarytweaks.mixin;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.maheevil.ordinarytweaks.SomeOrdinaryTweaksMod;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -10,13 +11,12 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.scores.Objective;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Gui.class)
 @Environment(EnvType.CLIENT)
@@ -81,5 +81,14 @@ public abstract class GuiMixin extends GuiComponent {
             case LEFT -> HumanoidArm.LEFT;
             case RIGHT -> HumanoidArm.RIGHT;
         };
+    }
+
+    @Inject(
+            method = "displayScoreboardSidebar",
+            at = @At("HEAD"),
+            cancellable = true
+    )
+    private void inject_scoreboard$ordinarytweaks(PoseStack poseStack, Objective objective, CallbackInfo ci){
+        if(SomeOrdinaryTweaksMod.config.disableScoreboard) ci.cancel();
     }
 }

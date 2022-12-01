@@ -15,6 +15,7 @@ public class ModConfig implements ConfigData {
     public boolean invisibleTotem = false;
     public boolean betterHorseHUD = false;
     public boolean fullBright = false;
+    public boolean disableScoreboard = false;
     @ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
     public OffHandSlotLoc offHandSlotLoc = OffHandSlotLoc.VANILA;
     @ConfigEntry.Gui.PrefixText
