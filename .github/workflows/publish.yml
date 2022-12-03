@@ -51,6 +51,8 @@ jobs:
           modrinth-id: LNeXYJOg
           modrinth-token: "${{env.MODRINTH_TOKEN}}"
 
+          files-primary: build/libs/!(*-@(dev|sources|javadoc)).jar
+
           name: "${{env.RELEASE_NAME}}"
           version: "${{env.VERSION}}"
           version-type: release
