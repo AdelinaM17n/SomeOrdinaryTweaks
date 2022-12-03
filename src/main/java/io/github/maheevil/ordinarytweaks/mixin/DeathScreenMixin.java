@@ -6,7 +6,6 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-//import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -18,13 +17,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.List;
 
 @Mixin(DeathScreen.class)
+@SuppressWarnings("ConstantConditions")
 public abstract class DeathScreenMixin extends Screen {
     @Shadow
     @Final
     private List<Button> exitButtons;
     @Unique
     private String lastDeathCord;
-
     protected DeathScreenMixin(Component component) {
         super(component);
     }
@@ -49,9 +48,10 @@ public abstract class DeathScreenMixin extends Screen {
     @Inject(
             method = "init",
             at = @At(
-                    value = "INVOKE",
+                    value = "FIELD",
                     shift = At.Shift.BEFORE,
-                    target = "net/minecraft/client/gui/components/Button.<init>(IIIILnet/minecraft/network/chat/Component;Lnet/minecraft/client/gui/components/Button$OnPress;)V"
+                    target = "net/minecraft/client/gui/screens/DeathScreen.exitButtons : Ljava/util/List;",
+                    ordinal = 2
             )
     )
     protected void init(CallbackInfo ci){
@@ -59,11 +59,12 @@ public abstract class DeathScreenMixin extends Screen {
         if(SomeOrdinaryTweaksMod.config.deathCordsClipBoardButton){
             this.exitButtons.add(
                     this.addRenderableWidget(
-                            new Button(
-                                    this.width / 2 - 100, this.height / 4 + 120, 200, 20,
+                            new Button.Builder(
                                     Component.translatable("Copy Location To Clipboard"),
-                                    (buttonx) -> this.minecraft.keyboardHandler.setClipboard(xyz)
-                            )
+                                    button -> this.minecraft.keyboardHandler.setClipboard(xyz)
+                            ).bounds(
+                                    this.width / 2 - 100, this.height / 4 + 120, 200, 20
+                            ).build()
                     )
             );
         }
@@ -84,7 +85,7 @@ public abstract class DeathScreenMixin extends Screen {
     }
 
     @Inject(
-            method = "confirmResult",
+            method = "method_47939(Z)V",
             at = @At(
                     value = "INVOKE",
                     target = "net/minecraft/client/Minecraft.setScreen (Lnet/minecraft/client/gui/screens/Screen;)V",
@@ -92,7 +93,8 @@ public abstract class DeathScreenMixin extends Screen {
             )
     )
     private void handleConfirm(boolean bl, CallbackInfo ci){
-        if(SomeOrdinaryTweaksMod.config.sendDeathCords)
+        if(SomeOrdinaryTweaksMod.config.sendDeathCords){
             this.minecraft.player.sendSystemMessage(Component.literal(lastDeathCord));
+        }
     }
 }
