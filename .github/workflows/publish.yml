@@ -1,11 +1,12 @@
-
+# REMINDER TO CHANGE VERSION RESOLVER, For now manually specifying work
+# Change this to an automatic resolver in the future
 
 name: Publish on Curseforge & Modrinth
 
 on: [ push ]
 
 env:
-  MINECRAFT_VERSION: 1.19.2
+  MINECRAFT_VERSION: 1.19.3-rc1
   JAVA_VERSION: 17
   VERSION: 1.19.3-1.6.0
   RELEASE_NAME: SomeOrdinaryTweaks-1.19.3-1.6.0
@@ -44,10 +45,10 @@ jobs:
       - name: Publish (CurseForge/Modrinth/Github)
         uses: Kir-Antipov/mc-publish@v3.2
         with:
-          curseforge-id: 123456
+          curseforge-id: 550257
           curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
 
-          modrinth-id: 1q2w3e4r
+          modrinth-id: LNeXYJOg
           modrinth-token: "${{env.MODRINTH_TOKEN}}"
 
           name: "${{env.RELEASE_NAME}}"
