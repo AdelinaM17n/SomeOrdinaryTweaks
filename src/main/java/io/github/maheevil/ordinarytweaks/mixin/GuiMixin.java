@@ -10,6 +10,7 @@ import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.PlayerRideableJumping;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.scores.Objective;
 import org.spongepowered.asm.mixin.Final;
@@ -60,12 +61,17 @@ public abstract class GuiMixin extends GuiComponent {
 
     @Redirect(
             method = "render",
-            at = @At(value = "INVOKE", target = "net/minecraft/client/player/LocalPlayer.isRidingJumpable()Z", ordinal = 0)
+            at = @At(
+                    value = "INVOKE",
+                    target = "net/minecraft/client/player/LocalPlayer.jumpableVehicle()Lnet/minecraft/world/entity/PlayerRideableJumping;",
+                    ordinal = 0
+            )
     )
-    private boolean redirect_isRidingJumpable_IF(LocalPlayer instance){
+    private PlayerRideableJumping redirect_isRidingJumpable_IF(LocalPlayer instance){
         return SomeOrdinaryTweaksMod.config.betterHorseHUD && this.minecraft.gameMode.getPlayerMode() != GameType.CREATIVE
-                ? this.minecraft.options.keyJump.isDown() && instance.isRidingJumpable()
-                : instance.isRidingJumpable();
+                ? this.minecraft.options.keyJump.isDown()
+                    ? instance.jumpableVehicle() : null
+                : instance.jumpableVehicle();
     }
 
     @SuppressWarnings("all") // MCDEV STOP TRYING TO GASLIGHT ME
