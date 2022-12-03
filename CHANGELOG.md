@@ -1,0 +1,1 @@
+[Updated to 1.19.3](https://github.com/MaheEvil/SomeOrdinaryTweaks/issues/6)
