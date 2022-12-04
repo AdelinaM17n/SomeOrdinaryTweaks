@@ -1,14 +1,14 @@
 # REMINDER TO CHANGE VERSION RESOLVER, For now manually specifying work
 # Change this to an automatic resolver in the future
 
-name: Publish on Curseforge & Modrinth
+name: Upload Artifacts and Optionally Publish on Curseforge & Modrinth
 
 on: [ push ]
 
 env:
   MINECRAFT_VERSION: 1.19.3-rc1
   JAVA_VERSION: 17
-  VERSION: 1.19.3-1.6.0
+  VERSION: 1.19.3-1.6.0-test
   RELEASE_NAME: SomeOrdinaryTweaks-1.19.3-1.6.0
   MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
   CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
@@ -18,7 +18,6 @@ permissions:
 
 jobs:
   build:
-    if: "contains(github.event.head_commit.message, 'ACTION_RELEASE')"
     runs-on: ubuntu-latest
     steps:
       - name: Check Environment Variables
@@ -42,7 +41,14 @@ jobs:
       - name: Build
         run: ./gradlew clean build
 
+      - name: capture build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Artifacts
+          path: build/libs/
+
       - name: Publish (CurseForge/Modrinth/Github)
+        if: "contains(github.event.head_commit.message, 'ACTION_RELEASE')"
         uses: Kir-Antipov/mc-publish@v3.2
         with:
           curseforge-id: 550257
