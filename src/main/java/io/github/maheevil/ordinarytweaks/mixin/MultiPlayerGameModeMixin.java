@@ -41,16 +41,30 @@ public abstract class MultiPlayerGameModeMixin {
                 Level level = localPlayer.clientLevel;
                 Direction direction = blockHitResult.getDirection();
                 boolean isHittingYAxis = direction.getAxis() == Direction.Axis.Y;
-                BlockState blockState = isHittingYAxis
-                        ? level.getBlockState(blockHitResult.getBlockPos())
-                        : level.getBlockState(blockHitResult.getBlockPos().relative(direction));
+                BlockState blockState; // = isHittingYAxis
+                        //? level.getBlockState(blockHitResult.getBlockPos())
+                        //: level.getBlockState(blockHitResult.getBlockPos().relative(direction));
 
-                if( (blockState.getBlock() instanceof SlabBlock && blockState.getValue(SlabBlock.TYPE).equals(SlabType.BOTTOM))
-                        || (isHittingYAxis && level.getBlockState(blockHitResult.getBlockPos().relative(direction)).getBlock() instanceof SlabBlock))
-                {
+                if(isHittingYAxis){
+                    blockState = level.getBlockState(blockHitResult.getBlockPos());
+                    if(blockState.getBlock() instanceof SlabBlock){
+                        if(
+                            (direction.equals(Direction.UP) && blockState.getValue(SlabBlock.TYPE).equals(SlabType.BOTTOM))
+                                ||
+                            (direction.equals(Direction.DOWN) && blockState.getValue(SlabBlock.TYPE).equals(SlabType.TOP))
+                        ){
+                            mutableObject.setValue(InteractionResult.CONSUME);
+                            cir.setReturnValue(new ServerboundUseItemPacket(interactionHand, i));
+                            cir.cancel();
+                        }
+                    }
+                }else {
+                    blockState = level.getBlockState(blockHitResult.getBlockPos().relative(direction));
+                    if(blockState.getBlock() instanceof SlabBlock){
                         mutableObject.setValue(InteractionResult.CONSUME);
-                        cir.setReturnValue(new ServerboundUseItemPacket(interactionHand,i));
+                        cir.setReturnValue(new ServerboundUseItemPacket(interactionHand, i));
                         cir.cancel();
+                    }
                 }
             }
 
