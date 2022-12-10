@@ -22,13 +22,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Gui.class)
 @Environment(EnvType.CLIENT)
 public abstract class GuiMixin extends GuiComponent {
-
     @Shadow protected abstract int getVisibleVehicleHeartRows(int i);
     @Shadow protected abstract int getVehicleMaxHearts(LivingEntity livingEntity);
     @Shadow protected abstract LivingEntity getPlayerVehicleWithHealth();
     @Shadow private int screenHeight;
     @Shadow @Final private Minecraft minecraft;
 
+    @SuppressWarnings("ConstantConditions")
     @ModifyVariable(
             method = "renderVehicleHealth",
             at = @At("STORE"),
@@ -59,6 +59,7 @@ public abstract class GuiMixin extends GuiComponent {
                 ? this.getVisibleVehicleHeartRows(this.getVehicleMaxHearts(this.getPlayerVehicleWithHealth())) : original;
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Redirect(
             method = "render",
             at = @At(

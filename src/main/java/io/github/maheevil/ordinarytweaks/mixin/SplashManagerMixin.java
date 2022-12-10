@@ -21,7 +21,20 @@ public abstract class SplashManagerMixin extends SimplePreparableReloadListener<
             method = "apply(Ljava/util/List;Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)V",
             at = @At("TAIL")
     )
-    protected void injectAtTail_ToAddSplash(List<String> list, ResourceManager resourceManager, ProfilerFiller profilerFiller, CallbackInfo ci){
-        this.splashes.addAll(List.of("Trans Rights!","Non-Binary Rights!","The Minecraft bee is trans","[Generic Greeting]","Cone."));
+    protected void injectAtTail_ToAddSplash(
+            List<String> list,
+            ResourceManager resourceManager,
+            ProfilerFiller profilerFiller,
+            CallbackInfo ci
+    ){
+        this.splashes.addAll(
+                List.of(
+                        "Trans Rights!",
+                        "Non-Binary Rights!",
+                        "The Minecraft bee is trans",
+                        "[Generic Greeting]",
+                        "Cone."
+                )
+        );
     }
 }
