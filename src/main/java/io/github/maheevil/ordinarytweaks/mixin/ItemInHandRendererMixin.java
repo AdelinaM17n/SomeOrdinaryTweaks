@@ -23,7 +23,15 @@ public class ItemInHandRendererMixin {
             at = @At("HEAD"),
             cancellable = true
     )
-    public void injectAtHead_renderItem(LivingEntity livingEntity, ItemStack itemStack, ItemTransforms.TransformType transformType, boolean bl, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, CallbackInfo ci){
+    public void injectAtHead_renderItem(
+            LivingEntity livingEntity,
+            ItemStack itemStack,
+            ItemTransforms.TransformType transformType,
+            boolean bl,
+            PoseStack poseStack,
+            MultiBufferSource multiBufferSource,
+            int i, CallbackInfo ci
+    ){
         assert Minecraft.getInstance().player != null;
         ItemTransforms.TransformType comparisonTransformType = Minecraft.getInstance().player.getMainArm() == HumanoidArm.RIGHT
                 ? ItemTransforms.TransformType.FIRST_PERSON_LEFT_HAND : ItemTransforms.TransformType.FIRST_PERSON_RIGHT_HAND;
