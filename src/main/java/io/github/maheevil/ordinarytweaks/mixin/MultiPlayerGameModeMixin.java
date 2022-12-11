@@ -32,14 +32,7 @@ public abstract class MultiPlayerGameModeMixin {
             at = @At("HEAD"),
             cancellable = true
     )
-    public void injectTest(
-            MutableObject<InteractionResult> mutableObject,
-            LocalPlayer localPlayer,
-            InteractionHand interactionHand,
-            BlockHitResult blockHitResult,
-            int i,
-            CallbackInfoReturnable<Packet<?>> cir
-    ){
+    public void injectTest(MutableObject<InteractionResult> mutableObject, LocalPlayer localPlayer, InteractionHand interactionHand, BlockHitResult blockHitResult, int i, CallbackInfoReturnable<Packet<?>> cir){
         Item itemInHand = localPlayer.getItemInHand(interactionHand).getItem();
 
         if(itemInHand instanceof BlockItem blockItem){
@@ -53,21 +46,58 @@ public abstract class MultiPlayerGameModeMixin {
                 if(isHittingYAxis){
                     blockState = level.getBlockState(blockHitResult.getBlockPos());
                     BlockState relativeBlockState = level.getBlockState(blockHitResult.getBlockPos().relative(direction,1));
-                    handleHittingYAxis(
-                            mutableObject,
-                            interactionHand,
-                            i, cir,
-                            blockState,
-                            relativeBlockState,
-                            direction.equals(Direction.UP) ? SlabType.BOTTOM : SlabType.TOP,
-                            direction.equals(Direction.UP) ? SlabType.TOP : SlabType.BOTTOM
-                    );
+
+                    if(blockState.getBlock() instanceof SlabBlock){
+                        SlabType bsSlabType = blockState.getValue(SlabBlock.TYPE);
+                        if(direction.equals(Direction.UP)){
+                            if(
+                                    // if targeted slab block is a bottom, placing a block from up would form a double slab
+                                    bsSlabType.equals(SlabType.BOTTOM)
+                                    // if the relative block is a slab block and is a top, clicking on the targeted top slab block would form a double slab
+                                    || (relativeBlockState.getBlock() instanceof SlabBlock && relativeBlockState.getValue(SlabBlock.TYPE).equals(SlabType.TOP))
+                            )
+                            {
+                                mutableObject.setValue(InteractionResult.CONSUME);
+                                cir.setReturnValue(new ServerboundUseItemPacket(interactionHand, i));
+                                cir.cancel();
+                            }
+                        }else {
+                            if(
+                                    // if targeted slab block is a top, placing a block from bellow would form a double slab
+                                    bsSlabType.equals(SlabType.TOP)
+                                    // if the relative block is a slab block and is a bottom, clicking on the targeted bottom slab block would form a double slab
+                                    || (relativeBlockState.getBlock() instanceof SlabBlock && relativeBlockState.getValue(SlabBlock.TYPE).equals(SlabType.BOTTOM))
+                            )
+                            {
+                                mutableObject.setValue(InteractionResult.CONSUME);
+                                cir.setReturnValue(new ServerboundUseItemPacket(interactionHand, i));
+                                cir.cancel();
+                            }
+                        }
+                    }else {
+                        // This feels like a war crime, I am once again doing the Y axis relative block check but this time if the targeted block is not a slab
+                        if(direction.equals(Direction.UP)){
+                            // referer to comments above
+                            if(relativeBlockState.getBlock() instanceof SlabBlock && relativeBlockState.getValue(SlabBlock.TYPE).equals(SlabType.TOP)){
+                                mutableObject.setValue(InteractionResult.CONSUME);
+                                cir.setReturnValue(new ServerboundUseItemPacket(interactionHand, i));
+                                cir.cancel();
+                            }
+                        }else {
+                            // refer to comments above
+                            if(relativeBlockState.getBlock() instanceof  SlabBlock && relativeBlockState.getValue(SlabBlock.TYPE).equals(SlabType.BOTTOM)){
+                                mutableObject.setValue(InteractionResult.CONSUME);
+                                cir.setReturnValue(new ServerboundUseItemPacket(interactionHand, i));
+                                cir.cancel();
+                            }
+                        }
+                    }
                 }else {
-                    blockState = level.getBlockState(blockHitResult.getBlockPos().relative(direction));
                     // if the block relative to the direction of the targeted block side is a slab block, it would form a double slab block
                     // this will not prevent none double-slab-block forming placements
+                    blockState = level.getBlockState(blockHitResult.getBlockPos().relative(direction));
                     if(blockState.getBlock() instanceof SlabBlock){
-                        mutableObject.setValue(InteractionResult.FAIL);
+                        mutableObject.setValue(InteractionResult.CONSUME);
                         cir.setReturnValue(new ServerboundUseItemPacket(interactionHand, i));
                         cir.cancel();
                     }
@@ -85,24 +115,4 @@ public abstract class MultiPlayerGameModeMixin {
         }
     }
 
-    private void handleHittingYAxis(
-            MutableObject<InteractionResult> mutableObject,
-            InteractionHand interactionHand,
-            int i, CallbackInfoReturnable<Packet<?>> cir,
-            BlockState blockState,
-            BlockState relativeBlockState,
-            SlabType targetSlabTypeRequirement,
-            SlabType relativeSlabSizeRequirement
-    ){
-        if(// if targeted slab block is a top, placing a block from bellow would form a double slab, and vice versa
-                (blockState.getBlock() instanceof SlabBlock && blockState.getValue(SlabBlock.TYPE).equals(targetSlabTypeRequirement))
-                // if the relative block is a slab block and is a bottom, clicking on the targeted bottom slab block would form a double slab, and vice versa
-                || (relativeBlockState.getBlock() instanceof SlabBlock && relativeBlockState.getValue(SlabBlock.TYPE).equals(relativeSlabSizeRequirement))
-        )
-        {
-            mutableObject.setValue(InteractionResult.FAIL);
-            cir.setReturnValue(new ServerboundUseItemPacket(interactionHand, i));
-            cir.cancel();
-        }
-    }
 }
