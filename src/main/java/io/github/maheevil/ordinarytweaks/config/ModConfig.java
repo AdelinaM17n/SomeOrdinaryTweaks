@@ -29,5 +29,7 @@ public class ModConfig implements ConfigData {
     public boolean doNotPlantEdiblesIfHungry = false;
     public boolean noDoubleSlabPlacement = false;
     public boolean skipResourcePackDownload = false;
+    @ConfigEntry.Gui.RequiresRestart
+    public boolean noSplash = false;
 
 }

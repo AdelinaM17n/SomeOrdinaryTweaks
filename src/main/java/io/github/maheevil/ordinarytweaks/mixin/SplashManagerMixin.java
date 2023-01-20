@@ -1,5 +1,6 @@
 package io.github.maheevil.ordinarytweaks.mixin;
 
+import io.github.maheevil.ordinarytweaks.SomeOrdinaryTweaksMod;
 import net.minecraft.client.resources.SplashManager;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
@@ -27,14 +28,16 @@ public abstract class SplashManagerMixin extends SimplePreparableReloadListener<
             ProfilerFiller profilerFiller,
             CallbackInfo ci
     ){
-        this.splashes.addAll(
-                List.of(
-                        "Trans Rights!",
-                        "Non-Binary Rights!",
-                        "The Minecraft bee is trans",
-                        "[Generic Greeting]",
-                        "Cone."
-                )
-        );
+        if(!SomeOrdinaryTweaksMod.config.noSplash){
+            this.splashes.addAll(
+                    List.of(
+                            "Trans Rights!",
+                            "Non-Binary Rights!",
+                            "The Minecraft bee is trans",
+                            "[Generic Greeting]",
+                            "Cone."
+                    )
+            );
+        }
     }
 }

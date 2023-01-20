@@ -1,2 +1,1 @@
-**[Updated to 1.19.3](https://github.com/MaheEvil/SomeOrdinaryTweaks/issues/6)**   
-Fixed bugs with double slab placement
+- Added a toggle to the custom splash messages of the mod
