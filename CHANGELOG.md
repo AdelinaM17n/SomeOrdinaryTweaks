@@ -1,1 +1,1 @@
-- Added a toggle to the custom splash messages of the mod
+- Fixed an bug which didn't allow players to interact with interactable blocks under very specific circumstances caused by the `NoDoubleSlabPlacement` feature
