@@ -46,30 +46,36 @@ public abstract class MultiPlayerGameModeMixin {
 
             if(SomeOrdinaryTweaksMod.config.noDoubleSlabPlacement && blockItem.getBlock() instanceof SlabBlock){
                 Level level = localPlayer.clientLevel;
-                Direction direction = blockHitResult.getDirection();
-                boolean isHittingYAxis = direction.getAxis() == Direction.Axis.Y;
-                BlockState blockState;
+                BlockState theBlockGettingHit = level.getBlockState(blockHitResult.getBlockPos());
+                if(
+                        !theBlockGettingHit.use(level,localPlayer, interactionHand, blockHitResult).consumesAction()
+                        || localPlayer.isSecondaryUseActive()
+                ){
+                    Direction direction = blockHitResult.getDirection();
+                    boolean isHittingYAxis = direction.getAxis() == Direction.Axis.Y;
+                    BlockState blockState;
 
-                if(isHittingYAxis){
-                    blockState = level.getBlockState(blockHitResult.getBlockPos());
-                    BlockState relativeBlockState = level.getBlockState(blockHitResult.getBlockPos().relative(direction,1));
-                    handleHittingYAxis(
-                            mutableObject,
-                            interactionHand,
-                            i, cir,
-                            blockState,
-                            relativeBlockState,
-                            direction.equals(Direction.UP) ? SlabType.BOTTOM : SlabType.TOP,
-                            direction.equals(Direction.UP) ? SlabType.TOP : SlabType.BOTTOM
-                    );
-                }else {
-                    blockState = level.getBlockState(blockHitResult.getBlockPos().relative(direction));
-                    // if the block relative to the direction of the targeted block side is a slab block, it would form a double slab block
-                    // this will not prevent none double-slab-block forming placements
-                    if(blockState.getBlock() instanceof SlabBlock){
-                        mutableObject.setValue(InteractionResult.FAIL);
-                        cir.setReturnValue(new ServerboundUseItemPacket(interactionHand, i));
-                        cir.cancel();
+                    if(isHittingYAxis){
+                        blockState = theBlockGettingHit;
+                        BlockState relativeBlockState = level.getBlockState(blockHitResult.getBlockPos().relative(direction,1));
+                        handleHittingYAxis(
+                                mutableObject,
+                                interactionHand,
+                                i, cir,
+                                blockState,
+                                relativeBlockState,
+                                direction.equals(Direction.UP) ? SlabType.BOTTOM : SlabType.TOP,
+                                direction.equals(Direction.UP) ? SlabType.TOP : SlabType.BOTTOM
+                        );
+                    }else {
+                        blockState = level.getBlockState(blockHitResult.getBlockPos().relative(direction));
+                        // if the block relative to the direction of the targeted block side is a slab block, it would form a double slab block
+                        // this will not prevent none double-slab-block forming placements
+                        if(blockState.getBlock() instanceof SlabBlock){
+                            mutableObject.setValue(InteractionResult.FAIL);
+                            cir.setReturnValue(new ServerboundUseItemPacket(interactionHand, i));
+                            cir.cancel();
+                        }
                     }
                 }
             }
