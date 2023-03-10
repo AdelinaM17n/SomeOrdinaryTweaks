@@ -1,1 +1,1 @@
-- Added a toggle to the custom splash messages of the mod
+- Updated to 1.19.4 and also contains the bug fix for the slab placement
