@@ -6,7 +6,7 @@ name: Upload Artifacts and Optionally Publish on Curseforge & Modrinth
 on: [ push ]
 
 env:
-  MINECRAFT_VERSION: 1.19.4-rc2
+  MINECRAFT_VERSION: 1.19.4
   JAVA_VERSION: 17
   VERSION: fabric-1.19.4-1.6.5
   RELEASE_NAME: SomeOrdinaryTweaks-1.19.4-1.6.5
