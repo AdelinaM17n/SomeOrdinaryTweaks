@@ -35,3 +35,4 @@ run/
 # idk
 
 .env
+/jarDeps/replaymod-1.19.3-2.6.10.jar

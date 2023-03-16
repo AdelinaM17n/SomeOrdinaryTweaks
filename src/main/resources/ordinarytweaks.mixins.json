@@ -17,7 +17,8 @@
     "ToastComponentMixin",
     "LightTextureMixin",
     "GameRendererMixin",
-    "compat.advancementPlaques.AdvancementPlaqueToastGuiMixin"
+    "compat.advancementPlaques.AdvancementPlaqueToastGuiMixin",
+    "compat.replaymod.ResourcePackRecorderMixin"
   ],
   "injectors": {
     "defaultRequire": 0
