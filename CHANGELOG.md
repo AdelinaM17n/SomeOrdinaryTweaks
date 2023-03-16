@@ -1,1 +1,1 @@
-- Fixed an bug which didn't allow players to interact with interactable blocks under very specific circumstances caused by the `NoDoubleSlabPlacement` feature
+- ReplayMod Compatibility related change
