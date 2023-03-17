@@ -1,4 +1,5 @@
 # SomeOrdinaryTweaks Mod
+A minecraft mod that that adds some QOL improvements
 
 ## Setup
 
