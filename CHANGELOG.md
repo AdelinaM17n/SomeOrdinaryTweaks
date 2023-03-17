@@ -1,0 +1,1 @@
+- Fixed double slab placement and made `SkipResourcePackDownloads` work with replaymod (backport)
