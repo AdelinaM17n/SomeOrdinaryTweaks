@@ -14,8 +14,8 @@ public abstract class LightTextureMixin {
   @ModifyVariable(
           method = "updateLightTexture",
           at = @At(value = "STORE"),
-          index = 8,
-          ordinal = 6
+          index = 21,
+          ordinal = 9
   )
   public float br(float value){
       return SomeOrdinaryTweaksMod.config.fullBright ? 100 : value;
