@@ -1,1 +1,1 @@
-- Fixes an compatibility issue with replaymod
+- Fixes a bug with fulbright
