@@ -54,8 +54,8 @@ jobs:
           curseforge-id: 550257
           curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
 
-          modrinth-id: LNeXYJOg
-          modrinth-token: "${{env.MODRINTH_TOKEN}}"
+          #modrinth-id: LNeXYJOg
+          #modrinth-token: "${{env.MODRINTH_TOKEN}}"
 
           name: "${{env.RELEASE_NAME}}"
           version: "${{env.VERSION}}"
@@ -67,5 +67,8 @@ jobs:
             quilt
 
           game-versions: "${{env.MINECRAFT_VERSION}}"
+          dependencies: |
+            cloth-config2@11.0.99(required){modrinth:9s6osm5g}{curseforge:348521}
+            modmenu@7.0.0(recommended){modrinth:mOgUt4GM}{curseforge:308702}
           java: "${{env.JAVA_VERSION}}"
 
