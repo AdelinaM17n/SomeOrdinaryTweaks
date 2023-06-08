@@ -54,8 +54,8 @@ jobs:
           curseforge-id: 550257
           curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
 
-          #modrinth-id: LNeXYJOg
-          #modrinth-token: "${{env.MODRINTH_TOKEN}}"
+          modrinth-id: LNeXYJOg
+          modrinth-token: "${{env.MODRINTH_TOKEN}}"
 
           name: "${{env.RELEASE_NAME}}"
           version: "${{env.VERSION}}"
