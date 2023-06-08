@@ -1,12 +1,11 @@
 package io.github.maheevil.ordinarytweaks.mixin;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.maheevil.ordinarytweaks.SomeOrdinaryTweaksMod;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Gui.class)
 @Environment(EnvType.CLIENT)
-public abstract class GuiMixin extends GuiComponent {
+public abstract class GuiMixin {
     @Shadow protected abstract int getVisibleVehicleHeartRows(int i);
     @Shadow protected abstract int getVehicleMaxHearts(LivingEntity livingEntity);
     @Shadow protected abstract LivingEntity getPlayerVehicleWithHealth();
@@ -95,7 +94,7 @@ public abstract class GuiMixin extends GuiComponent {
             at = @At("HEAD"),
             cancellable = true
     )
-    private void inject_scoreboard$ordinarytweaks(PoseStack poseStack, Objective objective, CallbackInfo ci){
+    private void inject_scoreboard$ordinarytweaks(GuiGraphics guiGraphics, Objective objective, CallbackInfo ci){
         if(SomeOrdinaryTweaksMod.config.disableScoreboard) ci.cancel();
     }
 }

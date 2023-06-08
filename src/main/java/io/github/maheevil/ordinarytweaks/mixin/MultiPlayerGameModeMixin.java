@@ -32,7 +32,7 @@ public abstract class MultiPlayerGameModeMixin {
             at = @At("HEAD"),
             cancellable = true
     )
-    public void injectTest(
+    public void beforeInteractionInject$ordinarytweaks(
             MutableObject<InteractionResult> mutableObject,
             LocalPlayer localPlayer,
             InteractionHand interactionHand,

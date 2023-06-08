@@ -1,1 +1,1 @@
-- Fixes a bug with fulbright
+- Updated to 1.20
