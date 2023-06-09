@@ -19,9 +19,9 @@ public abstract class LightTextureMixin {
   @ModifyVariable(
           method = "updateLightTexture",
           at = @At(value = "STORE"),
-          index = 21, ordinal = 9,
+          index = 21, ordinal = 9
           //index = 8, ordinal = 6, indexes for night vision scale
-          print = true
+          //print = true I am a bloody idiot
   )
   public float br(float value){
       return SomeOrdinaryTweaksMod.config.fullBright ? 100 : value;
