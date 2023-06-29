@@ -1,1 +1,1 @@
-- Updated to 1.20
+- Fixed a bug with Smarter Edible Crop Placement not letting the player interact with chests and other interactable blocks

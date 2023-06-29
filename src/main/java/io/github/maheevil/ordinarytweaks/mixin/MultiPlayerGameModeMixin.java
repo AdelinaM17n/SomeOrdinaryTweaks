@@ -19,6 +19,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -43,10 +44,10 @@ public abstract class MultiPlayerGameModeMixin {
         Item itemInHand = localPlayer.getItemInHand(interactionHand).getItem();
 
         if(itemInHand instanceof BlockItem blockItem){
+            Level level = localPlayer.clientLevel;
+            BlockState theBlockGettingHit = level.getBlockState(blockHitResult.getBlockPos());
 
             if(SomeOrdinaryTweaksMod.config.noDoubleSlabPlacement && blockItem.getBlock() instanceof SlabBlock){
-                Level level = localPlayer.clientLevel;
-                BlockState theBlockGettingHit = level.getBlockState(blockHitResult.getBlockPos());
                 if(
                         !theBlockGettingHit.use(level,localPlayer, interactionHand, blockHitResult).consumesAction()
                         || localPlayer.isSecondaryUseActive()
@@ -80,17 +81,22 @@ public abstract class MultiPlayerGameModeMixin {
                 }
             }
 
-            if(SomeOrdinaryTweaksMod.config.doNotPlantEdiblesIfHungry
-                    && blockItem.isEdible()
-                    && !localPlayer.isSecondaryUseActive())
-            {
-                mutableObject.setValue(useItem(localPlayer, interactionHand));
-                cir.setReturnValue(new ServerboundUseItemPacket(interactionHand, i));
-                cir.cancel();
+            if(SomeOrdinaryTweaksMod.config.doNotPlantEdiblesIfHungry && blockItem.isEdible()){
+                if(// !(x XOR y)
+                        theBlockGettingHit.use(level, localPlayer, interactionHand, blockHitResult).consumesAction()
+                            ==
+                        localPlayer.isSecondaryUseActive()
+                ){
+                    mutableObject.setValue(useItem(localPlayer, interactionHand));
+                    cir.setReturnValue(new ServerboundUseItemPacket(interactionHand, i));
+                    cir.cancel();
+                }
+
             }
         }
     }
 
+    @Unique
     private void handleHittingYAxis(
             MutableObject<InteractionResult> mutableObject,
             InteractionHand interactionHand,
