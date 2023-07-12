@@ -16,7 +16,11 @@
   "text.autoconfig.ordinarytweaks.option.doNotPlantEdiblesIfHungry": "Smarter Edible Crop Placement",
   "text.autoconfig.ordinarytweaks.option.noDoubleSlabPlacement": "No Double Slab Placement",
   "text.autoconfig.ordinarytweaks.option.invisibleShield.@PrefixText": "Rendering/GUI Tweaks",
+  "text.autoconfig.ordinarytweaks.option.noSplash":"Disable SomeOrdinaryTweaks Splash Messages",
+  "text.autoconfig.ordinarytweaks.option.opacitySettings": "Opacity Settings",
+  "text.autoconfig.ordinarytweaks.option.opacitySettings.textDisplayOpacity": "Text Display Opacity",
+  "text.autoconfig.ordinarytweaks.option.opacitySettings.nameTagOpacity": "NameTag Opacity",
   "text.autoconfig.ordinarytweaks.option.hideTutorialToasts.@PrefixText":"\nToast Control",
-  "text.autoconfig.ordinarytweaks.option.deathCordsClipBoardButton.@PrefixText":"\nGeneral Tweaks",
-  "text.autoconfig.ordinarytweaks.option.noSplash":"Disable SomeOrdinaryTweaks Splash Messages"
+  "text.autoconfig.ordinarytweaks.option.deathCordsClipBoardButton.@PrefixText":"\nGeneral Tweaks"
+
 }

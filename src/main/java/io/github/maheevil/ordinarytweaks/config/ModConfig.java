@@ -1,6 +1,7 @@
 package io.github.maheevil.ordinarytweaks.config;
 
 import io.github.maheevil.ordinarytweaks.config.enums.OffHandSlotLoc;
+import io.github.maheevil.ordinarytweaks.config.enums.VanillaOrPercentage;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
@@ -18,6 +19,9 @@ public class ModConfig implements ConfigData {
     public boolean disableScoreboard = false;
     @ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
     public OffHandSlotLoc offHandSlotLoc = OffHandSlotLoc.VANILA;
+    @ConfigEntry.Gui.CollapsibleObject
+    public OpacitySettings opacitySettings = new OpacitySettings();
+
     @ConfigEntry.Gui.PrefixText
     public boolean hideTutorialToasts = true;
     public boolean hideAdvancementToasts = false;
@@ -31,5 +35,15 @@ public class ModConfig implements ConfigData {
     public boolean skipResourcePackDownload = false;
     @ConfigEntry.Gui.RequiresRestart
     public boolean noSplash = false;
+
+
+    public static class OpacitySettings {
+        //@ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
+        //public VanillaOrPercentage chatOpacity = VanillaOrPercentage.VANILLA;
+        @ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
+        public VanillaOrPercentage nameTagOpacity = VanillaOrPercentage.VANILLA;
+        @ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
+        public VanillaOrPercentage textDisplayOpacity = VanillaOrPercentage.VANILLA;
+    }
 
 }
