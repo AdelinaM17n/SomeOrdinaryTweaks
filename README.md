@@ -23,7 +23,7 @@ https://github.com/MaheEvil/SomeOrdinaryTweaks-Forge
 
 Do I even need a big reason at this point lmao, go read [this](https://tech.lgbt/@unascribed@sleeping.town/110697228969164407)
 
-~~I have removed the usage of mixin plugins, so fabric jar should be usable in quilt~~~   
+~~I have removed the usage of mixin plugins, so fabric jar should be usable in quilt~~   
 ~~I originally intended to completely move to quilt-loader but due to reasons listed below I will not move myself just yet~~   
    
 ~~**YES, I know QSL is meant to be modular and now I have gotten word that in the future the qsl module that has the entry-point for the mod will be updated fast, so the bellow reasons are bit outdated but still relvenat**~~   
