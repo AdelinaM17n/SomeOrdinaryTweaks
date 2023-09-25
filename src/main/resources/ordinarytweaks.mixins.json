@@ -2,12 +2,13 @@
   "required": true,
   "minVersion": "0.8",
   "package": "io.github.maheevil.ordinarytweaks.mixin",
+  "plugin": "io.github.maheevil.ordinarytweaks.config.OrdinaryTweaksMixinPlugin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
   ],
   "client": [
     "BlockEntityWithoutLevelRendererMixin",
-    "ClientPacketListenerMixin",
+    "ClientCommonPacketListenerImplMixin",
     "DeathScreenMixin",
     "EntityRendererMixin",
     "GameRendererMixin",
@@ -19,7 +20,6 @@
     "SplashManagerMixin",
     "TextDisplayRendererMixin",
     "ToastComponentMixin",
-    "compat.advancementPlaques.AdvancementPlaqueToastGuiMixin",
     "compat.replaymod.ResourcePackRecorderMixin"
   ],
   "injectors": {
