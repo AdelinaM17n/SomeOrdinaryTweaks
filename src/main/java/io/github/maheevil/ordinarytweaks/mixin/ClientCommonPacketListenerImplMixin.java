@@ -4,16 +4,18 @@ import io.github.maheevil.ordinarytweaks.SomeOrdinaryTweaksMod;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.common.ClientboundResourcePackPacket;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.common.ClientboundResourcePackPushPacket;
 import net.minecraft.network.protocol.common.ServerboundResourcePackPacket;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import java.net.URL;
+import java.util.UUID;
 
 @Restriction(
         conflict = {
@@ -22,31 +24,23 @@ import java.net.URL;
 )
 @Mixin(ClientCommonPacketListenerImpl.class)
 public abstract class ClientCommonPacketListenerImplMixin {
-    @Shadow protected abstract void send(ServerboundResourcePackPacket.Action action);
+    @Shadow @Final protected Connection connection;
 
     @Inject(
-            method = "handleResourcePack",
-            at = @At(value = "HEAD"),
-            cancellable=true
+            method = "handleResourcePackPush",
+            at = @At(
+                    target = "net/minecraft/client/multiplayer/ClientCommonPacketListenerImpl.parseResourcePackUrl (Ljava/lang/String;)Ljava/net/URL;",
+                    shift = At.Shift.AFTER,
+                    value = "INVOKE"
+            ),
+            cancellable = true,
+            locals = LocalCapture.CAPTURE_FAILEXCEPTION
     )
-    public void onResourcePackSend(ClientboundResourcePackPacket par1, CallbackInfo ci) {
-        if(SomeOrdinaryTweaksMod.config.skipResourcePackDownload) {
-            this.send(ServerboundResourcePackPacket.Action.ACCEPTED);
-            this.send(ServerboundResourcePackPacket.Action.SUCCESSFULLY_LOADED);
-            ci.cancel();
-        }
-    }
-
-    @Inject(
-            method = "showServerPackPrompt",
-            at = @At(value = "HEAD"),
-            cancellable = true
-    )
-    private void onShowPrompt(URL uRL, String string, boolean bl, Component component, CallbackInfo ci){
-        if(SomeOrdinaryTweaksMod.config.skipResourcePackDownload) {
-            this.send(ServerboundResourcePackPacket.Action.ACCEPTED);
-            this.send(ServerboundResourcePackPacket.Action.SUCCESSFULLY_LOADED);
-            ci.cancel();
+    private void injectAfterParseUrl$handleResourcePackPush(ClientboundResourcePackPushPacket clientboundResourcePackPushPacket, CallbackInfo ci, UUID uUID){
+        if(SomeOrdinaryTweaksMod.config.skipResourcePackDownload){
+            this.connection.send(new ServerboundResourcePackPacket(uUID, ServerboundResourcePackPacket.Action.ACCEPTED));
+            this.connection.send(new ServerboundResourcePackPacket(uUID, ServerboundResourcePackPacket.Action.DOWNLOADED));
+            this.connection.send(new ServerboundResourcePackPacket(uUID, ServerboundResourcePackPacket.Action.SUCCESSFULLY_LOADED));
         }
     }
 }
