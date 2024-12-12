@@ -5,6 +5,8 @@ import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl;
 import net.minecraft.network.Connection;
+import net.minecraft.network.DisconnectionDetails;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.common.ClientboundResourcePackPushPacket;
 import net.minecraft.network.protocol.common.ServerboundResourcePackPacket;
 import org.spongepowered.asm.mixin.Final;
@@ -26,6 +28,8 @@ import java.util.UUID;
 public abstract class ClientCommonPacketListenerImplMixin {
     @Shadow @Final protected Connection connection;
 
+    @Shadow public abstract DisconnectionDetails createDisconnectionInfo(Component component, Throwable throwable);
+
     @Inject(
             method = "handleResourcePackPush",
             at = @At(
@@ -41,6 +45,7 @@ public abstract class ClientCommonPacketListenerImplMixin {
             this.connection.send(new ServerboundResourcePackPacket(uUID, ServerboundResourcePackPacket.Action.ACCEPTED));
             this.connection.send(new ServerboundResourcePackPacket(uUID, ServerboundResourcePackPacket.Action.DOWNLOADED));
             this.connection.send(new ServerboundResourcePackPacket(uUID, ServerboundResourcePackPacket.Action.SUCCESSFULLY_LOADED));
+            ci.cancel();
         }
     }
 }

@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Gui.class)
 @Environment(EnvType.CLIENT)
 public abstract class GuiMixin {
-    @Shadow protected abstract int getVisibleVehicleHeartRows(int i);
+    /**@Shadow protected abstract int getVisibleVehicleHeartRows(int i);
     @Shadow protected abstract int getVehicleMaxHearts(LivingEntity livingEntity);
     @Shadow protected abstract LivingEntity getPlayerVehicleWithHealth();
     @Shadow private int screenHeight;
@@ -96,5 +96,5 @@ public abstract class GuiMixin {
     )
     private void inject_scoreboard$ordinarytweaks(GuiGraphics guiGraphics, Objective objective, CallbackInfo ci){
         if(SomeOrdinaryTweaksMod.config.disableScoreboard) ci.cancel();
-    }
+    } **/
 }

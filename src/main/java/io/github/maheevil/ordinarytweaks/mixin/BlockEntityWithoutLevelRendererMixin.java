@@ -4,32 +4,30 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.maheevil.ordinarytweaks.SomeOrdinaryTweaksMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.item.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(BlockEntityWithoutLevelRenderer.class)
+//@Mixin(BlockEntityWithoutLevelRenderer.class)
+@Mixin(ItemRenderer.class)
 public abstract class BlockEntityWithoutLevelRendererMixin {
 
     @Inject(
-            method = "renderByItem",
+            method = "renderItem",
             at = @At(
-                    target = "net/minecraft/world/item/BlockItem.getBlockEntityData(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/nbt/CompoundTag;",
-                    shift = At.Shift.BEFORE,
-                    value = "INVOKE"
+                    value = "HEAD"
             ),
             cancellable = true
     )
-    public void renderByItemMixin(
-            ItemStack itemStack,
-            ItemDisplayContext itemDisplayContext,
-            PoseStack poseStack,
-            MultiBufferSource multiBufferSource,
-            int i, int j, CallbackInfo ci
+    private static void renderByItemMixin(
+            ItemDisplayContext itemDisplayContext, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, int[] is, BakedModel bakedModel, RenderType renderType, ItemStackRenderState.FoilType foilType, CallbackInfo ci
     ){
         /*
          * ItemDisplayContext.getId()'s first person ids (in decimal) are 3 (left) and 4 (right)

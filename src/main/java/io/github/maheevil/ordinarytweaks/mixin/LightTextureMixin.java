@@ -1,13 +1,11 @@
 package io.github.maheevil.ordinarytweaks.mixin;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import io.github.maheevil.ordinarytweaks.SomeOrdinaryTweaksMod;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.world.effect.MobEffect;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(LightTexture.class)
 public abstract class LightTextureMixin {
@@ -27,14 +25,9 @@ public abstract class LightTextureMixin {
       return SomeOrdinaryTweaksMod.config.fullBright ? 100 : value;
   }
 
-  @Redirect(
-          method = "getDarknessGamma",
-          at = @At(
-                  value = "INVOKE",
-                  target = "net/minecraft/client/player/LocalPlayer.hasEffect (Lnet/minecraft/world/effect/MobEffect;)Z"
-          )
-  )
-  public boolean darknessInject(LocalPlayer instance, MobEffect mobEffect){
-      return !SomeOrdinaryTweaksMod.config.fullBright && instance.hasEffect(mobEffect);
+  @ModifyReturnValue(
+          method = "getDarknessGamma", at = @At("RETURN"))
+  public float darknessInject(float original){
+      return !SomeOrdinaryTweaksMod.config.fullBright ? original : 0.0F;
   }
 }

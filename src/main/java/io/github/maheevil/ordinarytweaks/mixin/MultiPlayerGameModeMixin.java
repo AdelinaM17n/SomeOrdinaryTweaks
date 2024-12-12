@@ -4,13 +4,20 @@ import io.github.maheevil.ordinarytweaks.SomeOrdinaryTweaksMod;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ServerboundUseItemPacket;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.flag.FeatureFlag;
+import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.FoodOnAStickItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -28,20 +35,23 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class MultiPlayerGameModeMixin {
     @Shadow public abstract InteractionResult useItem(Player player, InteractionHand interactionHand);
 
+    @Shadow private GameType localPlayerMode;
+
     @Inject(
             method = "method_41933(Lorg/apache/commons/lang3/mutable/MutableObject;Lnet/minecraft/client/player/LocalPlayer;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/phys/BlockHitResult;I)Lnet/minecraft/network/protocol/Packet;",
             at = @At("HEAD"),
             cancellable = true
     )
     public void beforeInteractionInject$ordinarytweaks(
-            MutableObject<InteractionResult> mutableObject,
+            MutableObject mutableObject,
             LocalPlayer localPlayer,
             InteractionHand interactionHand,
             BlockHitResult blockHitResult,
             int i,
             CallbackInfoReturnable<Packet<?>> cir
     ){
-        Item itemInHand = localPlayer.getItemInHand(interactionHand).getItem();
+        ItemStack itemStackInHand = localPlayer.getItemInHand(interactionHand);
+        Item itemInHand = itemStackInHand.getItem();
 
         if(itemInHand instanceof BlockItem blockItem){
             Level level = localPlayer.clientLevel;
@@ -49,7 +59,7 @@ public abstract class MultiPlayerGameModeMixin {
 
             if(SomeOrdinaryTweaksMod.config.noDoubleSlabPlacement && blockItem.getBlock() instanceof SlabBlock){
                 if(
-                        !theBlockGettingHit.use(level,localPlayer, interactionHand, blockHitResult).consumesAction()
+                        !theBlockGettingHit.useItemOn(itemStackInHand,level,localPlayer, interactionHand, blockHitResult).consumesAction()
                         || localPlayer.isSecondaryUseActive()
                 ){
                     Direction direction = blockHitResult.getDirection();
@@ -66,7 +76,8 @@ public abstract class MultiPlayerGameModeMixin {
                                 blockState,
                                 relativeBlockState,
                                 direction.equals(Direction.UP) ? SlabType.BOTTOM : SlabType.TOP,
-                                direction.equals(Direction.UP) ? SlabType.TOP : SlabType.BOTTOM
+                                direction.equals(Direction.UP) ? SlabType.TOP : SlabType.BOTTOM,
+                                localPlayer.getXRot(), localPlayer.getYRot()
                         );
                     }else {
                         blockState = level.getBlockState(blockHitResult.getBlockPos().relative(direction));
@@ -74,21 +85,21 @@ public abstract class MultiPlayerGameModeMixin {
                         // this will not prevent none double-slab-block forming placements
                         if(blockState.getBlock() instanceof SlabBlock){
                             mutableObject.setValue(InteractionResult.FAIL);
-                            cir.setReturnValue(new ServerboundUseItemPacket(interactionHand, i));
+                            cir.setReturnValue(new ServerboundUseItemPacket(interactionHand, i, localPlayer.getXRot(), localPlayer.getYRot()));
                             cir.cancel();
                         }
                     }
                 }
             }
 
-            if(SomeOrdinaryTweaksMod.config.doNotPlantEdiblesIfHungry && blockItem.isEdible()){
+            if(SomeOrdinaryTweaksMod.config.doNotPlantEdiblesIfHungry && itemStackInHand.getComponents().has(DataComponents.FOOD)){
                 if(// !(x XOR y)
-                        theBlockGettingHit.use(level, localPlayer, interactionHand, blockHitResult).consumesAction()
+                        theBlockGettingHit.useItemOn(itemStackInHand, level, localPlayer, interactionHand, blockHitResult).consumesAction()
                             ==
                         localPlayer.isSecondaryUseActive()
                 ){
                     mutableObject.setValue(useItem(localPlayer, interactionHand));
-                    cir.setReturnValue(new ServerboundUseItemPacket(interactionHand, i));
+                    cir.setReturnValue(new ServerboundUseItemPacket(interactionHand, i, localPlayer.getXRot(), localPlayer.getYRot()));
                     cir.cancel();
                 }
 
@@ -104,7 +115,8 @@ public abstract class MultiPlayerGameModeMixin {
             BlockState blockState,
             BlockState relativeBlockState,
             SlabType targetSlabTypeRequirement,
-            SlabType relativeSlabSizeRequirement
+            SlabType relativeSlabSizeRequirement,
+            float xrot, float yrot
     ){
         if(// if targeted slab block is a top, placing a block from bellow would form a double slab, and vice versa
                 (blockState.getBlock() instanceof SlabBlock && blockState.getValue(SlabBlock.TYPE).equals(targetSlabTypeRequirement))
@@ -113,7 +125,7 @@ public abstract class MultiPlayerGameModeMixin {
         )
         {
             mutableObject.setValue(InteractionResult.FAIL);
-            cir.setReturnValue(new ServerboundUseItemPacket(interactionHand, i));
+            cir.setReturnValue(new ServerboundUseItemPacket(interactionHand, i, xrot, yrot));
             cir.cancel();
         }
     }

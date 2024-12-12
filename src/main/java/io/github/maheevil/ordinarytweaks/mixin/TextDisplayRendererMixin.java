@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(DisplayRenderer.TextDisplayRenderer.class)
 public class TextDisplayRendererMixin {
-    @Redirect(
+    /**@Redirect(
             method = "renderInner(Lnet/minecraft/world/entity/Display$TextDisplay;Lnet/minecraft/world/entity/Display$TextDisplay$TextRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;IF)V",
             at = @At(value = "INVOKE", target = "net/minecraft/client/Options.getBackgroundOpacity (F)F")
     )
@@ -22,5 +22,5 @@ public class TextDisplayRendererMixin {
             case _75_PERCENT -> 0.75F;
             case _100_PERCENT -> 1.0F;
         };
-    }
+    } **/
 }

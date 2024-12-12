@@ -79,7 +79,7 @@ public abstract class DeathScreenMixin extends Screen {
     )
     private void handle(Button button, CallbackInfo ci){
         if(SomeOrdinaryTweaksMod.config.sendDeathCords)
-            this.minecraft.player.sendSystemMessage(Component.literal(lastDeathCord));
+            this.minecraft.player.displayClientMessage(Component.literal(lastDeathCord), false);
     }
 
     @Inject(
@@ -92,7 +92,7 @@ public abstract class DeathScreenMixin extends Screen {
     )
     private void handleConfirm(boolean bl, CallbackInfo ci){
         if(SomeOrdinaryTweaksMod.config.sendDeathCords){
-            this.minecraft.player.sendSystemMessage(Component.literal(lastDeathCord));
+            this.minecraft.player.displayClientMessage(Component.literal(lastDeathCord), false);
         }
     }
 }

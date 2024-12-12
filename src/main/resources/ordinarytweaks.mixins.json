@@ -19,7 +19,6 @@
     "MultiPlayerGameModeMixin",
     "SplashManagerMixin",
     "TextDisplayRendererMixin",
-    "ToastComponentMixin",
     "compat.replaymod.ResourcePackRecorderMixin"
   ],
   "injectors": {
