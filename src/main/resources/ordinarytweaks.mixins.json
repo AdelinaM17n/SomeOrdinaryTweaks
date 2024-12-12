@@ -7,7 +7,6 @@
   "mixins": [
   ],
   "client": [
-    "BlockEntityWithoutLevelRendererMixin",
     "ClientCommonPacketListenerImplMixin",
     "DeathScreenMixin",
     "EntityRendererMixin",
@@ -19,6 +18,7 @@
     "MultiPlayerGameModeMixin",
     "SplashManagerMixin",
     "TextDisplayRendererMixin",
+    "ToastComponentMixin",
     "compat.replaymod.ResourcePackRecorderMixin"
   ],
   "injectors": {
