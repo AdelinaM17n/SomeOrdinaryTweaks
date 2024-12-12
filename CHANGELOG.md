@@ -1,1 +1,3 @@
-- update to 1.20.2
+- Update to 1.21.4
+- The `Copy Death Location To Clipboard` button disables itself and sets its text to "Location Copied" once it has been clicked.
+- Reimplementing a lot of features using injects and MixinExtra ModifyExpressionValues for future-proofing and compatibility 
