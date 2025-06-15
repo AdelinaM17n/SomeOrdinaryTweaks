@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public abstract class LocalPlayerMixin {
 
     @Redirect(
-            method = "handleConfusionTransitionEffect",
+            method = "handlePortalTransitionEffect",
             at = @At(value = "FIELD", target = "net/minecraft/client/Minecraft.screen:Lnet/minecraft/client/gui/screens/Screen;", ordinal = 0)
     )
     public Screen redirect_isPauseScreen(Minecraft instance) {

@@ -22,8 +22,11 @@ public class ItemInHandRendererMixin {
             cancellable = true
     )
     public void injectAtHead_renderItem(
-            LivingEntity livingEntity, ItemStack itemStack, ItemDisplayContext itemDisplayContext,
-            boolean bl, PoseStack poseStack, MultiBufferSource multiBufferSource,
+            LivingEntity livingEntity,
+            ItemStack itemStack,
+            ItemDisplayContext itemDisplayContext,
+            PoseStack poseStack,
+            MultiBufferSource multiBufferSource,
             int i, CallbackInfo ci
     ){
         /*
@@ -51,7 +54,12 @@ public class ItemInHandRendererMixin {
             cancellable = true
     )
     private void renderByItemMixin(
-            LivingEntity livingEntity, ItemStack itemStack, ItemDisplayContext itemDisplayContext, boolean bl, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, CallbackInfo ci
+            LivingEntity livingEntity,
+            ItemStack itemStack,
+            ItemDisplayContext itemDisplayContext,
+            PoseStack poseStack,
+            MultiBufferSource multiBufferSource,
+            int i, CallbackInfo ci
     ){
         /*
          * ItemDisplayContext.getId()'s first person ids (in decimal) are 3 (left) and 4 (right)
@@ -68,7 +76,7 @@ public class ItemInHandRendererMixin {
 
             if(itemDisplayContext.firstPerson() && itemDisplayContext.getId() % 2 == localPlayer.getMainArm().getId()){
                 if(!(mainHandItemStack.getItem() instanceof AxeItem
-                        || mainHandItemStack.getItem() instanceof SwordItem
+                        || mainHandItemStack.getItem().getName().getString().contains("Sword")
                         || mainHandItemStack.getItem() instanceof ProjectileWeaponItem
                         || mainHandItemStack.getItem() instanceof TridentItem)
                 ) ci.cancel();

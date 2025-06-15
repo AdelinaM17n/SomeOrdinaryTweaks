@@ -26,7 +26,7 @@ public abstract class LightTextureMixin {
   }
 
   @ModifyReturnValue(
-          method = "getDarknessGamma", at = @At("RETURN"))
+          method = "calculateDarknessScale", at = @At("RETURN"))
   public float darknessInject(float original){
       return !SomeOrdinaryTweaksMod.config.fullBright ? original : 0.0F;
   }
