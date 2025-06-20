@@ -1,17 +1,15 @@
 package io.github.maheevil.ordinarytweaks.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import io.github.maheevil.ordinarytweaks.SomeOrdinaryTweaksMod;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.PlayerRideableJumping;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.scores.Objective;
 import org.jetbrains.annotations.Nullable;
@@ -27,13 +25,11 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 public abstract class GuiMixin {
     @Shadow @Final private Minecraft minecraft;
 
-    @Shadow protected abstract void renderExperienceBar(GuiGraphics guiGraphics, int i);
-
     @Shadow protected abstract int getVehicleMaxHearts(@Nullable LivingEntity livingEntity);
 
     @Shadow @Nullable protected abstract LivingEntity getPlayerVehicleWithHealth();
 
-    @Shadow public abstract void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker);
+    @Shadow protected abstract boolean willPrioritizeJumpInfo();
 
     @SuppressWarnings("ConstantConditions")
     @ModifyVariable(
@@ -55,7 +51,21 @@ public abstract class GuiMixin {
         return SomeOrdinaryTweaksMod.config.betterHorseHUD ? 0 : in;
     }
 
-    @Inject(
+
+    @ModifyReturnValue(
+            method = "nextContextualInfoState",
+            at = @At("RETURN")
+    )
+    public Gui.ContextualInfo xpBarGoBrr(Gui.ContextualInfo original){
+        if(SomeOrdinaryTweaksMod.config.betterHorseHUD && original.equals(Gui.ContextualInfo.JUMPABLE_VEHICLE)){
+            if(this.minecraft.gameMode.hasExperience() && !this.minecraft.options.keyJump.isDown()){
+                return Gui.ContextualInfo.EXPERIENCE;
+            }
+        }
+
+        return original;
+    }
+    /*@Inject(
             method = "renderHotbarAndDecorations",
             at = @At(
                     value = "INVOKE",
@@ -63,13 +73,13 @@ public abstract class GuiMixin {
                     shift = At.Shift.AFTER
             ),
             locals = LocalCapture.CAPTURE_FAILEXCEPTION
-    )private void renderXpPostJumpMeter(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci, int i, PlayerRideableJumping playerRideableJumping){
+    )private void renderXpPostJumpMeter(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci){
         if(SomeOrdinaryTweaksMod.config.betterHorseHUD && this.minecraft.gameMode.hasExperience() && !this.minecraft.options.keyJump.isDown()){
-            this.renderExperienceBar(guiGraphics,i);
+            ContextualBarRenderer.renderExperienceLevel(guiGraphics, this.minecraft.font, this.minecraft.player.experienceLevel);
         }
     }
 
-    @WrapWithCondition(
+    /*@WrapWithCondition(
             method = "renderHotbarAndDecorations",
             at = @At(
                     value = "INVOKE",
@@ -78,7 +88,7 @@ public abstract class GuiMixin {
     )
     private boolean wrapRenderJumpMeter(Gui instance, PlayerRideableJumping playerRideableJumping, GuiGraphics guiGraphics, int i){
         return !SomeOrdinaryTweaksMod.config.betterHorseHUD || !this.minecraft.gameMode.hasExperience() || this.minecraft.options.keyJump.isDown();
-    }
+    }*/
 
     @ModifyArg(
             method = "renderPlayerHealth",
@@ -108,7 +118,7 @@ public abstract class GuiMixin {
             return i;
     }
 
-    @ModifyExpressionValue(
+    /*@ModifyExpressionValue(
             method = "renderExperienceLevel",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;isExperienceBarVisible()Z")
     )
@@ -117,7 +127,7 @@ public abstract class GuiMixin {
             return true;
         }
         return original;
-    }
+    }*/
 
     //@SuppressWarnings("all") // MCDEV STOP TRYING TO GASLIGHT ME
     @ModifyVariable(

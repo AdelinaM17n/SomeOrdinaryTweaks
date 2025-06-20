@@ -25,13 +25,16 @@
       "io.github.maheevil.ordinarytweaks.compat.modmenu.SomeOrdinaryTweaksIntergration"
     ]
   },
+
+  "accessWidener" : "ordinarytweaks.accesswidener",
+
   "mixins": [
     "ordinarytweaks.mixins.json"
   ],
 
   "depends": {
     "fabricloader": ">=0.14.0",
-    "minecraft": ">=1.21",
+    "minecraft": ">=1.21.6",
     "java": ">=17",
     "cloth-config": ">=7.0.65"
   },
