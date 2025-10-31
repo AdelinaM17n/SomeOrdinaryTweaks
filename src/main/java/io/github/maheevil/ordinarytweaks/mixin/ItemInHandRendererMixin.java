@@ -5,7 +5,7 @@ import io.github.maheevil.ordinarytweaks.SomeOrdinaryTweaksMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.ItemInHandRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.*;
 import org.spongepowered.asm.mixin.Mixin;
@@ -26,7 +26,7 @@ public class ItemInHandRendererMixin {
             ItemStack itemStack,
             ItemDisplayContext itemDisplayContext,
             PoseStack poseStack,
-            MultiBufferSource multiBufferSource,
+            SubmitNodeCollector submitNodeCollector,
             int i, CallbackInfo ci
     ){
         /*
@@ -58,7 +58,7 @@ public class ItemInHandRendererMixin {
             ItemStack itemStack,
             ItemDisplayContext itemDisplayContext,
             PoseStack poseStack,
-            MultiBufferSource multiBufferSource,
+            SubmitNodeCollector submitNodeCollector,
             int i, CallbackInfo ci
     ){
         /*

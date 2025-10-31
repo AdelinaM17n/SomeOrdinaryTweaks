@@ -2,15 +2,15 @@ package io.github.maheevil.ordinarytweaks.mixin;
 
 import io.github.maheevil.ordinarytweaks.SomeOrdinaryTweaksMod;
 import net.minecraft.client.Options;
-import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.feature.NameTagFeatureRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(EntityRenderer.class)
-public class EntityRendererMixin {
+@Mixin(NameTagFeatureRenderer.Storage.class)
+public class NameTagRendererStorageMixin {
     @Redirect(
-            method = "renderNameTag",
+            method = "add",
             at = @At(value = "INVOKE", target = "net/minecraft/client/Options.getBackgroundOpacity (F)F")
     )
     private float redirectBackgroundOpacity$ordinarytweaks(Options instance, float opacity){

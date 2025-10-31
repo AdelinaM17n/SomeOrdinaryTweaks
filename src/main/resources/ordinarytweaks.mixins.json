@@ -9,7 +9,7 @@
   "client": [
     "ClientCommonPacketListenerImplMixin",
     "DeathScreenMixin",
-    "EntityRendererMixin",
+    "NameTagRendererStorageMixin",
     "GameRendererMixin",
     "GuiMixin",
     "ItemInHandRendererMixin",

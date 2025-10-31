@@ -1,1 +1,2 @@
-- Updated to 1.21.8
+- Updated to 1.21.9
+- Text Render Opacity Option does not currently work properly

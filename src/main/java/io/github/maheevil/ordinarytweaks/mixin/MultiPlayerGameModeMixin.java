@@ -7,17 +7,12 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ServerboundUseItemPacket;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.flag.FeatureFlag;
-import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.FoodOnAStickItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -35,7 +30,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class MultiPlayerGameModeMixin {
     @Shadow public abstract InteractionResult useItem(Player player, InteractionHand interactionHand);
 
-    @Shadow private GameType localPlayerMode;
+    //@Shadow private GameType localPlayerMode;
 
     @Inject(
             method = "method_41933(Lorg/apache/commons/lang3/mutable/MutableObject;Lnet/minecraft/client/player/LocalPlayer;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/phys/BlockHitResult;I)Lnet/minecraft/network/protocol/Packet;",
@@ -54,7 +49,7 @@ public abstract class MultiPlayerGameModeMixin {
         Item itemInHand = itemStackInHand.getItem();
 
         if(itemInHand instanceof BlockItem blockItem){
-            Level level = localPlayer.clientLevel;
+            Level level = localPlayer.level();
             BlockState theBlockGettingHit = level.getBlockState(blockHitResult.getBlockPos());
 
             if(SomeOrdinaryTweaksMod.config.noDoubleSlabPlacement && blockItem.getBlock() instanceof SlabBlock){
