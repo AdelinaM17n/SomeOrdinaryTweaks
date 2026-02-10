@@ -2,10 +2,10 @@ package io.github.maheevil.ordinarytweaks.mixin;
 
 import io.github.maheevil.ordinarytweaks.SomeOrdinaryTweaksMod;
 import net.minecraft.client.resources.SplashManager;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,7 +16,9 @@ import java.util.List;
 
 @Mixin(SplashManager.class)
 public abstract class SplashManagerMixin extends SimplePreparableReloadListener<List<String>> {
-    @Shadow @Final private List<String> splashes;
+
+    /*@Shadow
+    private List<Component> splashes;
 
     @Inject(
             method = "apply(Ljava/util/List;Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)V",
@@ -31,13 +33,13 @@ public abstract class SplashManagerMixin extends SimplePreparableReloadListener<
         if(!SomeOrdinaryTweaksMod.config.noSplash){
             this.splashes.addAll(
                     List.of(
-                            "Trans Rights!",
-                            "Non-Binary Rights!",
-                            "The Minecraft bee is trans",
-                            "[Generic Greeting]",
-                            "Cone."
+                            Component.literal("Trans Rights!"),
+                            Component.literal("Non-Binary People are cool!"),
+                            Component.literal("The Minecraft bee is trans"),
+                            Component.literal("[Generic Greeting]"),
+                            Component.literal("Cone.")
                     )
             );
         }
-    }
+    }*/
 }

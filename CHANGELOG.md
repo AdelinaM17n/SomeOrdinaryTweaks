@@ -1,2 +1,2 @@
-- Updated to 1.21.10
-- Text Render Opacity Option still does not work properly
+- Updated to 1.21.11
+- Custom Splash Text Has Been Temporarily Removed

@@ -40,7 +40,7 @@ public class ItemInHandRendererMixin {
         if(SomeOrdinaryTweaksMod.config.invisibleTotem){
             assert Minecraft.getInstance().player != null;
             if(itemDisplayContext.firstPerson()
-                    && itemDisplayContext.getId() % 2 == Minecraft.getInstance().player.getMainArm().getId()
+                    && itemDisplayContext.getId() % 2 == Minecraft.getInstance().player.getMainArm().ordinal()
                     && itemStack.is(Items.TOTEM_OF_UNDYING)
             ) ci.cancel();
         }
@@ -67,14 +67,14 @@ public class ItemInHandRendererMixin {
          *
          * So when ItemDisplayContext's ID's remainder is taken after dividing by 2, its left and right should
          * mismatch with the main arm's left and right arms
-         * If they are equal that means it's rendering the offhand item, And that is cancelled if the item matches
+         * If they are equal that means it's rendering the offhand item, And that is canceled if the item matches
          */
         if(SomeOrdinaryTweaksMod.config.invisibleShield){
             assert Minecraft.getInstance().player != null;
             LocalPlayer localPlayer = Minecraft.getInstance().player;
             ItemStack mainHandItemStack = localPlayer.getMainHandItem();
 
-            if(itemDisplayContext.firstPerson() && itemDisplayContext.getId() % 2 == localPlayer.getMainArm().getId()){
+            if(itemDisplayContext.firstPerson() && itemDisplayContext.getId() % 2 == localPlayer.getMainArm().ordinal()){
                 if(!(mainHandItemStack.getItem() instanceof AxeItem
                         || mainHandItemStack.getItem().getName().getString().contains("Sword")
                         || mainHandItemStack.getItem() instanceof ProjectileWeaponItem
